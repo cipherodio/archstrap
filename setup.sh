@@ -94,17 +94,17 @@ else
     msg "No GnuPG directory found, skipping"
 fi
 
-# GitHub SSH check
-msg "Checking GitHub SSH access"
+# GitLab SSH check
+msg "Checking GitLab SSH access"
 
 if git ls-remote "$STARTPAGE_REPO" >/dev/null 2>&1; then
-    msg "GitHub SSH access OK"
+    msg "GitLab SSH access OK"
 else
-    die "GitHub SSH access failed.
+    die "GitLab SSH access failed.
 Ensure:
   - ssh-agent is running
   - your key is added (ssh-add)
-  - the key is uploaded to GitHub"
+  - the key is uploaded to GitLab"
 fi
 
 # Startpage
