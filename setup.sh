@@ -26,6 +26,7 @@ NOTES_REPO="${REPO_BASE}mdnotes.git"
 PODCAST_REPO="${REPO_BASE}podcast.git"
 
 HUB_DIR="$HOME_DIR/hub"
+HUB2_DIR="/data/hub2"
 SRC_DIR="$HUB_DIR/src"
 DOTS_DIR="$HOME_DIR/.config/.dots"
 
@@ -80,6 +81,19 @@ mkdir -p \
     "$HOME_DIR/.venv"
 
 msg "Done creating hub directory structure"
+
+# Hub2 directories
+msg "Creating hub2 directory structure"
+
+mkdir -p \
+    "$HUB2_DIR/data"/{documents,music,videos,wallpapers} \
+    "$HUB2_DIR/projects"/{main,audacity,blender,shotcut,gimp} \
+    "$HUB2_DIR/projects/audacity"/{output,raw,save} \
+    "$HUB2_DIR/projects/blender"/{output,raw,save} \
+    "$HUB2_DIR/projects/shotcut"/{mlts,output,raw,save} \
+    "$HUB2_DIR/projects/gimp"/{output,raw,save}
+
+msg "Done creating hub2 directory structure"
 
 # GnuPG permissions
 msg "Setting GnuPG permissions"
