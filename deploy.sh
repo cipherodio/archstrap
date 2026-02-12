@@ -31,17 +31,13 @@ ensure_dir() {
 # Require root
 [[ $EUID -ne 0 ]] && die "This script must be run as root"
 
-# -------------------------
 # 1. Time zone
-# -------------------------
 msg "Setting time zone and syncing hardware clock"
 ln -sf /usr/share/zoneinfo/Asia/Manila /etc/localtime
 hwclock --systohc
 msg "Time zone set"
 
-# -------------------------
 # 2. Localization
-# -------------------------
 msg "Generating locales"
 locale_gen="/etc/locale.gen"
 backup_file "$locale_gen"
@@ -54,9 +50,7 @@ locale-gen
 echo LANG=en_PH.UTF-8 >/etc/locale.conf
 msg "Localization complete"
 
-# -------------------------
 # 3. Hostname and /etc/hosts
-# -------------------------
 msg "Setting hostname and hosts file"
 echo core >/etc/hostname
 
@@ -71,9 +65,7 @@ EOF
 
 msg "Hostname and hosts configured"
 
-# -------------------------
 # 4. Network services
-# -------------------------
 msg "Enabling NetworkManager"
 systemctl enable NetworkManager.service
 
@@ -90,15 +82,11 @@ EOF
 
 msg "NetworkManager configured to use iwd backend"
 
-# -------------------------
 # 5. Bluetooth service
-# -------------------------
 msg "Enabling Bluetooth service"
 systemctl enable bluetooth.service
 
-# -------------------------
 # 6. Console font
-# -------------------------
 msg "Setting permanent console font"
 vconsole_conf="/etc/vconsole.conf"
 backup_file "$vconsole_conf"
@@ -107,9 +95,7 @@ cat >"$vconsole_conf" <<'EOF'
 FONT=ter-132b
 EOF
 
-# -------------------------
 # 7. Touchpad tapping
-# -------------------------
 msg "Enabling touchpad tapping"
 xorg_dir="/etc/X11/xorg.conf.d"
 ensure_dir "$xorg_dir"
@@ -127,9 +113,7 @@ Section "InputClass"
 EndSection
 EOF
 
-# -------------------------
 # 8. Keyboard caps->escape
-# -------------------------
 msg "Remapping Caps Lock to Escape"
 keyboard_conf="$xorg_dir/00-keyboard.conf"
 backup_file "$keyboard_conf"
@@ -142,9 +126,7 @@ Section "InputClass"
 EndSection
 EOF
 
-# -------------------------
 # 9. Disable watchdog
-# -------------------------
 msg "Disabling watchdog modules"
 modprobe_conf="/etc/modprobe.d/watchdog.conf"
 backup_file "$modprobe_conf"
@@ -154,9 +136,7 @@ blacklist iTCO_wdt
 blacklist iTCO_vendor_support
 EOF
 
-# -------------------------
 # 10. ASUS battery charge limit
-# -------------------------
 msg "Setting ASUS battery charge limit (60%)"
 udev_dir="/etc/udev/rules.d"
 ensure_dir "$udev_dir"
@@ -168,9 +148,7 @@ cat >"$battery_rule" <<'EOF'
 ACTION=="add", KERNEL=="asus-nb-wmi", RUN+="/bin/bash -c 'echo 60 > /sys/class/power_supply/BAT0/charge_control_end_threshold'"
 EOF
 
-# -------------------------
 # 11. Disable CPU boost
-# -------------------------
 msg "Disabling CPU boost"
 cpu_rule="$udev_dir/99-disable-cpu-boost.rules"
 backup_file "$cpu_rule"
@@ -179,4 +157,4 @@ cat >"$cpu_rule" <<'EOF'
 SUBSYSTEM=="cpu", ACTION=="add", RUN+="/bin/bash -c 'echo 0 > /sys/devices/system/cpu/cpufreq/boost'"
 EOF
 
-msg "Deployment complete! Reboot recommended."
+msg "Deployment complete!"

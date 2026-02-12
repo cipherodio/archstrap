@@ -25,9 +25,7 @@ ENTRY_CONF="$ENTRY_DIR/arch.conf"
 # Ensure directories exist
 mkdir -p "$ENTRY_DIR"
 
-# -------------------------
 # 1. Detect root UUID
-# -------------------------
 ROOT_PARTITION="$(findmnt -n -o SOURCE /)"
 ROOT_UUID="$(blkid -s UUID -o value "$ROOT_PARTITION")"
 
@@ -35,9 +33,7 @@ ROOT_UUID="$(blkid -s UUID -o value "$ROOT_PARTITION")"
 
 msg "Detected root UUID: $ROOT_UUID"
 
-# -------------------------
 # 2. Create loader.conf
-# -------------------------
 msg "Creating loader.conf"
 
 cat >"$LOADER_CONF" <<'EOF'
@@ -47,9 +43,7 @@ console-mode max
 editor no
 EOF
 
-# -------------------------
 # 3. Create arch.conf entry
-# -------------------------
 msg "Creating arch.conf entry"
 
 cat >"$ENTRY_CONF" <<EOF
