@@ -179,11 +179,4 @@ cat >"$cpu_rule" <<'EOF'
 SUBSYSTEM=="cpu", ACTION=="add", RUN+="/bin/bash -c 'echo 0 > /sys/devices/system/cpu/cpufreq/boost'"
 EOF
 
-# -------------------------
-# 12. Reload udev rules
-# -------------------------
-msg "Reloading udev rules"
-udevadm control --reload
-udevadm trigger
-
 msg "Deployment complete! Reboot recommended."
