@@ -1,66 +1,50 @@
-# Arch Linux Bootstrap Quick Notes
+# Arch Linux Installation
 
-This guide summarizes the key steps for installing Arch Linux with your
-custom scripts and dotfiles.
+> [!WARNING]
+>
+> I am not responsible for any damages, loss of data, system corruption,
+> or any mishap you may somehow cause by following this guide.
 
-Target system:
+## Overview
 
-- AMD CPU
-- systemd-boot
-- NetworkManager + iwd backend
-- ASUS battery limit rule
+This repository contains my personal **[Arch Linux][archlinux]**
+installation guide and setup workflow.
+
+It is designed specifically for my **[dotfiles][dots]**, which use
+**[Qtile][qtile]** as the window manager, and reflects the exact
+environment I run daily.
+
+This setup is built and tested on an **ASUS TUF A16 Advantage Edition**,
+so some hardware-specific steps or optimizations may reflect that
+platform.
+
+This guide walks through my full Arch setup, from a fresh installation
+to a fully working system.
+
+<!-- toc -->
+
+- [1. PRE-INSTALLATION](#1-pre-installation)
+    - [1.1 CHANGE CONSOLE FONT](#11-change-console-font)
+    - [1.2 CONNECT TO THE INTERNET](#12-connect-to-the-internet)
+    - [1.3 UPDATE SYSTEM CLOCK](#13-update-system-clock)
+
+<!-- tocstop -->
+
+## 1. PRE-INSTALLATION
+
+### 1.1 CHANGE CONSOLE FONT
 
 ```sh
-Start Arch ISO
-     │
-     ▼
-Partition & Mount Drives
-     │
-     ▼
-arch-chroot /mnt
-     │
-     ▼
-┌───────────────────────────┐
-│ Run deploy.sh             │
-│ (time, locale, hostname,  │
-│ network, console font,    │
-│ touchpad, keyboard,       │
-│ watchdog, battery, CPU)   │
-└───────────────────────────┘
-     │
-     ▼
-Set root password (passwd)
-     │
-     ▼
-Edit pacman.conf (multilib etc.)
-     │
-     ▼
-Create user, sudoers, chown /data
-     │
-     ▼
-Remount partitions → bootctl install
-     │
-     ▼
-┌───────────────────────────┐
-│ Run loader.sh             │
-│ (systemd-boot loader.conf │
-│ + arch.conf with root UUID│
-│ and boot options)         │
-└───────────────────────────┘
-     │
-     ▼
-Exit chroot → Umount → Reboot
-     │
-     ▼
-Login as user → Install dotfiles
+setfont ter-132b
 ```
 
-## Pre-installation
+### 1.2 CONNECT TO THE INTERNET
 
-1. Set font `setfont ter-132b`
-2. Connect to the internet.
+Using **iwctl** for wireless networking. Check internet connection with
+`ping -c 3 archlinux.org`
 
 ```sh
+# Get the name with `ip link` or through `device list`
 iwctl
 [iwd]$ device list
 [iwd]$ station wlan0 scan
@@ -68,37 +52,72 @@ iwctl
 [iwd]$ station wlan0 connect MyWifiNetwork
 ```
 
-3. Update system clock
+### 1.3 UPDATE SYSTEM CLOCK
 
 ```sh
 timedatectl status
 timedatectl set-ntp true
 ```
 
-4. Partition drives Wipe existing drive partition:
-   `wipefs -af /dev/nvme0n1`. Check disk with `lsblk -f`, then use
-   `fdisk /dev/nvme0n1` to partition drives.
-    - Boot partition
-        - Type `g` to set it on **GPT** disklabel.
-        - Type `n` for new partition.
-        - On last sector set it to `+1G`.
-    - Root partition
-        - Type `n` for new partition.
-        - All remainder of the device for last sector.
-    - Change boot partition type to **EFI**
-        - Press `t` for disklabel specified type.
-        - Type `1` to select first created partition.
-        - Type `1` to set it to `EFI` partition type.
-        - Type `p` to check if all partitions were correct.
-        - Type `w` to write changes and exit.
-    - Data Storage: do `fdisk /dev/nvme1n1`
-        - Type `g` to set it on **GPT** disklabel.
-        - Type `n` for new partition.
-        - All remainder of the device for last sector.
-        - Type `p` to check if all partitions were correct.
-        - Type `w` to write changes and exit.
+### 1.4 PARTITION DISK
 
-5. Format drives
+Quick overview of my partition layout.
+
+| **Mount Point** | **Partition**  | **Partition Type**   | **Suggested Size**      |
+| --------------- | -------------- | -------------------- | ----------------------- |
+| /mnt/boot       | /dev/nvme0n1p1 | EFI System Partition | 512MiB                  |
+| /mnt            | /dev/nvme0n1p2 | Linux File System    | Remainder of the device |
+| /mnt/data       | /dev/nvme1n1p1 | Linux File System    | Everything              |
+
+- **`wipefs -af /dev/nvme0n1`**: wipes existing drive partition
+- **`lsblk -f`**: checks disk
+- **`fdisk  /dev/nvme0n1`**: command to partition drive using _fdisk_.
+
+#### 1.4.1 FIRST DISK
+
+Main disk for installation: `fdisk /dev/nvme0n1`.
+
+##### 1.4.1.1 BOOT PARTITION
+
+1. Type `g` to set it on **GPT** disklabel.
+2. Type `n` for new partition.
+3. On last sector set it to `+1G`.
+
+##### 1.4.1.2 ROOT PARTITION
+
+1. Type `n` for new partition.
+2. All remainder of the device for last sector.
+
+##### 1.4.1.3 EFI PARTITION TYPE
+
+Change boot partition type to **EFI**.
+
+1. Press `t` for disklabel specified type.
+2. Type `1` to select first created partition.
+3. Type `1` to set it to `EFI` partition type.
+4. Type `p` to check if all partitions were correct.
+5. Type `w` to write changes and exit.
+
+#### 1.4.2 SECOND DISK
+
+Applicable only if you have second internal disk: `fdisk /dev/nvme1n1`.
+
+##### 1.4.2.1 DATA
+
+1. Type `g` to set it on **GPT** disklabel.
+2. Type `n` for new partition.
+3. All remainder of the device for last sector.
+4. Type `p` to check if all partitions were correct.
+5. Type `w` to write changes and exit.
+
+### 1.5 FORMAT DISK
+
+After partitions have been created, each newly partition must be
+formatted with an appropriate **[file system][filesystem]**.
+
+- **Boot Partition**: `Fat32` `nvme0n1p1`
+- **Root Partition**: `Ext4` `nvme0n1p2`
+- **Storage Disk**: `Ext4` `nvme1n1p1`
 
 ```sh
 mkfs.fat -F 32 /dev/nvme0n1p1
@@ -106,7 +125,7 @@ mkfs.ext4 /dev/nvme0n1p2
 mkfs.ext4 /dev/nvme1n1p1
 ```
 
-6. Mount
+### 1.6 MOUNT FILE SYSTEM
 
 ```sh
 mount /dev/nvme0n1p2 /mnt
@@ -114,9 +133,11 @@ mount --mkdir /dev/nvme0n1p1 /mnt/boot
 mount --mkdir /dev/nvme1n1p1 /mnt/data
 ```
 
-## Installation
+## 2 INSTALLATION
 
-1. Select mirrors `vim /etc/pacman.d/mirrorlist`
+### 2.1 SELECT MIRRORS
+
+`vim /etc/pacman.d/mirrorlist`
 
 ```sh
 Server = https://mirror.sg.gs/archlinux/$repo/os/$arch
@@ -127,7 +148,7 @@ Server = https://taipei.mirror.pkgbuild.com/archlinux/$repo/os/$arch
 Server = https://sg.arch.niranjan.co/archlinux/$repo/os/$arch
 ```
 
-2. Install essential packages.
+### 2.2 INSTALL PACKAGES
 
 ```sh
 pacstrap -K /mnt base base-devel linux linux-firmware xorg-server \
@@ -136,107 +157,43 @@ networkmanager iwd bluez bluez-utils terminus-font cpupower \
 zsh efibootmgr
 ```
 
-3. Generate Fstab
+## 3 SYSTEM CONFIGURATION
 
-```sh
-genfstab -U /mnt >> /mnt/etc/fstab
-```
+### 3.1 GENERATE FSTAB
 
 > After generating `fstab`, Change entries of _boot partition_
 > `vim /mnt/etc/fstab` to `fmask=0077` and `dmask=0077`. For `nvme1n1p1`
 > set it as `UUID=<uuid> /data ext4 defaults,noatime 0 2`.
 
-## Chroot
+```sh
+genfstab -U /mnt >> /mnt/etc/fstab
+```
+
+### 3.2 CHROOT
+
+Chroot to the new system environment.
 
 ```sh
 arch-chroot /mnt
 ```
 
-1. Run `deploy.sh` after `arch-chroot /mnt`
+### 3.3 DEPLOY SCRIPT
 
-```sh
-curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/deploy.sh | bash
-```
+This ![deploy script](deploy.sh) configures the following:
 
-2. After that, set root password `passwd`
-3. Edit `nvim /etc/pacman.conf`
+- Time
+- Locale
+- Hosts
+- Hostname
+- Network
+- Console Font
+- Touchpad
+- Keyboard
+- Watchdog
+- Battery
+- CPU
 
-```sh
-Color
-VerbosePkgLists
-ILoveCandy
-ParallelDownloads = 2
-
-[multilib]
-Include = /etc/pacman.d/mirrorlist
-```
-
-4. Create user, sudoers, and set ownership.
-
-```sh
-useradd -m -G users,wheel,video,render,audio,power,input,storage -s /bin/zsh cipherodio
-passwd cipherodio
-
-chown -R cipherodio:cipherodio /data
-
-# Sudoers
-EDITOR=nvim visudo -f /etc/sudoers.d/00_cipherodio
-
-# Add:
-cipherodio ALL=(ALL) ALL
-```
-
-5. Do `mount /dev/<root-partition> /mnt` to avoid `bootctl` errors.
-
-```sh
-exit
-umount -R /mnt
-mount /dev/nvme0n1p2 /mnt
-arch-chroot /mnt
-mount -a
-
-bootctl install
-```
-
-6. Run `loader.sh` to configure **systemd-boot**.
-
-```sh
-curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/loader.sh | bash
-```
-
-7. Exit chroot, unmount drives, and reboot.
-
-```sh
-exit
-umount -R /mnt
-reboot
-```
-
-## Post-installation
-
-1. Login as user **cipherodio** and update the system.
-
-```sh
-# Connect to the internet
-nmtui
-sudo pacman -Syu
-```
-
-2. Install **packages** and **dotfiles**.
-
-```sh
-curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/bootstrap.sh | bash
-reboot
-```
-
-3. Copy **SSH** key to **Gitlab**
-
-```sh
-cat ~/.ssh/gitlabkey.pub | xclip -selection clipboard
-```
-
-4. Run `setup.sh`
-
-```sh
-curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/setup.sh | bash
-```
+[archlinux]: https://archlinux.org/
+[dots]: https://gitlab.com/cipherodio/archdots
+[qtile]: https://qtile.org/
+[filesystem]: https://wiki.archlinux.org/title/File_systems
