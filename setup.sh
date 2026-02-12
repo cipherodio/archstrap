@@ -20,6 +20,7 @@ HOME_DIR="$HOME"
 GPG_DIR="$HOME_DIR/.gnupg"
 
 REPO_BASE="git@gitlab.com:cipherodio/"
+ARCHSTRAP_REPO="${REPO_BASE}archstrap.git"
 STARTPAGE_REPO="${REPO_BASE}startpage.git"
 NOTES_REPO="${REPO_BASE}mdnotes.git"
 PODCAST_REPO="${REPO_BASE}podcast.git"
@@ -97,7 +98,7 @@ fi
 # GitLab SSH check
 msg "Checking GitLab SSH access"
 
-if git ls-remote "$STARTPAGE_REPO" >/dev/null 2>&1; then
+if git ls-remote "$ARCHSTRAP_REPO" >/dev/null 2>&1; then
     msg "GitLab SSH access OK"
 else
     die "GitLab SSH access failed.
@@ -106,6 +107,11 @@ Ensure:
   - your key is added (ssh-add)
   - the key is uploaded to GitLab"
 fi
+
+# Archstrap
+msg "Processing archstrap"
+clone_if_missing "$ARCHSTRAP_REPO" "$SRC_DIR/archstrap"
+msg "Done processing archstrap"
 
 # Startpage
 msg "Processing startpage"
