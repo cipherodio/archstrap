@@ -48,7 +48,7 @@ mkfs.ext4 -F "${DATA_DISK}p1"
 msg "Mounting filesystems"
 
 mount "${DISK}p2" /mnt
-mount --mkdir "${DISK}p1" /mnt/boot
+mount --mkdir "${DISK}p1" /mnt/efi
 mount --mkdir "${DATA_DISK}p1" /mnt/data
 
 # 5. Set mirrorlist
@@ -77,7 +77,7 @@ msg "Generating fstab"
 genfstab -U /mnt >>/mnt/etc/fstab
 
 # Fix mount options
-sed -i '/\/boot/s/defaults/defaults,fmask=0077,dmask=0077/' /mnt/etc/fstab
+sed -i '/\/efi/s/defaults/defaults,fmask=0077,dmask=0077/' /mnt/etc/fstab
 sed -i '/\/data/s/defaults/defaults,noatime/' /mnt/etc/fstab
 
 msg "Preinstall complete."
