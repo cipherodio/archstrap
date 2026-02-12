@@ -95,7 +95,7 @@ timedatectl set-ntp true
 
 ### 1.4 PARTITION DISK
 
-Quick overview of my partition layout. Suggested size for the **EFI**
+Overview of my partition layout. Suggested size for the **EFI**
 partition is **512MiB**, though **1GiB** is recommended for modern
 systems.
 
