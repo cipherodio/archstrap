@@ -59,8 +59,6 @@ Server = https://mirror.xtom.com.hk/archlinux/$repo/os/$arch
 Server = https://mirror.sg.gs/archlinux/$repo/os/$arch
 Server = http://mirror.xtom.com.hk/archlinux/$repo/os/$arch
 Server = https://singapore.mirror.pkgbuild.com/archlinux/$repo/os/$arch
-Server = https://taipei.mirror.pkgbuild.com/archlinux/$repo/os/$arch
-Server = https://sg.arch.niranjan.co/archlinux/$repo/os/$arch
 EOF
 
 # 6. Install base system
