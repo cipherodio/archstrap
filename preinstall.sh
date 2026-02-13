@@ -48,7 +48,7 @@ mkfs.ext4 -F "${DATA_DISK}p1"
 msg "Mounting filesystems"
 
 mount "${DISK}p2" /mnt
-mount --mkdir "${DISK}p1" /mnt/efi
+mount --mkdir "${DISK}p1" /mnt/boot
 mount --mkdir "${DATA_DISK}p1" /mnt/data
 
 # 5. Set mirrorlist
