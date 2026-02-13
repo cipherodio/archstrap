@@ -14,7 +14,7 @@ die() {
 
 # 1. Set root password
 msg "Setting root password"
-passwd root
+passwd
 
 # 2. Create user cipherodio and set password
 msg "Creating user cipherodio if it doesn't exist"
