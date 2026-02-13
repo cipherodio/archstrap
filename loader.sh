@@ -17,7 +17,7 @@ die() {
 # Require root
 [[ $EUID -ne 0 ]] && die "This script must be run as root"
 
-BOOT_DIR="/efi"
+BOOT_DIR="/boot"
 LOADER_CONF="$BOOT_DIR/loader/loader.conf"
 ENTRY_DIR="$BOOT_DIR/loader/entries"
 ENTRY_CONF="$ENTRY_DIR/arch.conf"
