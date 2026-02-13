@@ -56,16 +56,20 @@ grep -q '^ILoveCandy' "$PACMAN_CONF" || sed -i '/^#DisableSandboxSyscalls/a ILov
 
 # 5. EFISTUB boot entry
 msg "Creating EFISTUB boot entry"
+
+# Detect root partition UUID (replace / with your actual root mount if different)
 ROOT_PART=$(findmnt -n -o SOURCE /)
 ROOT_UUID=$(blkid -s UUID -o value "$ROOT_PART")
 [[ -n "$ROOT_UUID" ]] || die "Failed to detect root UUID"
+
 msg "Root partition: $ROOT_PART"
 msg "Root UUID: $ROOT_UUID"
 
+# Create EFISTUB entry
 efibootmgr -d /dev/nvme0n1 -p 1 -c -L "Arch" -l /vmlinuz-linux -u \
-    "root=UUID=$ROOT_UUID rw quiet loglevel=0 console=tty2 amd_pstate=passive \
+    'root=UUID='"$ROOT_UUID"' rw quiet loglevel=0 console=tty2 amd_pstate=passive \
 modprobe.blacklist=sp5100_tco nmi_watchdog=0 ipv6.disable=1 \
-rd.systemd.show_status=false rd.udev.log_level=3 initrd=\\amd-ucode.img \
-initrd=\\initramfs-linux.img" --verbose
+rd.systemd.show_status=false rd.udev.log_level=3 initrd=\amd-ucode.img \
+initrd=\initramfs-linux.img' --verbose
 
-msg "Final setup complete! You can now exit chroot and reboot."
+msg "EFISTUB entry created successfully!"
