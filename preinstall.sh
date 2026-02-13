@@ -60,8 +60,8 @@ mount --mkdir -o rw,noatime "${DATA_DISK}p1" /mnt/data
 msg "Setting mirrorlist"
 
 cat >/etc/pacman.d/mirrorlist <<'EOF'
-Server = https://mirror.sg.gs/archlinux/$repo/os/$arch
-Server = http://mirror.xtom.com.hk/archlinux/$repo/os/$arch
+Server = https://sg.mirrors.cicku.me/archlinux/$repo/os/$arch
+Server = https://hk.mirrors.cicku.me/archlinux/$repo/os/$arch
 Server = https://singapore.mirror.pkgbuild.com/archlinux/$repo/os/$arch
 EOF
 
