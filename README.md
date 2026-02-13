@@ -163,6 +163,10 @@ This [final script](final.sh) configures the following:
 - Multilib
 - EFISTUB
 
+```sh
+curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/final.sh | bash
+```
+
 ### 2.7 REBOOT
 
 Exit chroot, unmount drives, and reboot.
