@@ -6,20 +6,15 @@
 set -Eeuo pipefail
 
 # Helpers
-msg() { printf '\033[1;94m==>\033[0m %s\n' "$1\n"; }
+msg() { printf '\033[1;94m==>\033[0m %s\n' "$1"; }
 die() {
-    printf '\033[1;31merror:\033[0m %s\n' "$1\n" >&2
+    printf '\033[1;31merror:\033[0m %s\n' "$1" >&2
     exit 1
 }
 
-# 1. Set root password interactively
+# 1. Set root password
 msg "Setting root password"
-read -s -r -p "Enter root password: " ROOT_PASS
-echo
-read -s -r -p "Confirm root password: " ROOT_PASS_CONFIRM
-echo
-[[ "$ROOT_PASS" == "$ROOT_PASS_CONFIRM" ]] || die "Passwords do not match!"
-echo "root:$ROOT_PASS" | chpasswd
+passwd root
 
 # 2. Create user cipherodio and set password
 msg "Creating user cipherodio if it doesn't exist"
@@ -28,12 +23,7 @@ if ! id -u cipherodio >/dev/null 2>&1; then
 fi
 
 msg "Setting password for cipherodio"
-read -s -r -p "Enter password for cipherodio: " USER_PASS
-echo
-read -s -r -p "Confirm password for cipherodio: " USER_PASS_CONFIRM
-echo
-[[ "$USER_PASS" == "$USER_PASS_CONFIRM" ]] || die "Passwords do not match!"
-echo "cipherodio:$USER_PASS" | chpasswd
+passwd cipherodio
 
 # Ensure sudoers entry exists
 SUDO_FILE="/etc/sudoers.d/00_cipherodio"
@@ -53,8 +43,12 @@ cp "$PACMAN_CONF" "${PACMAN_CONF}.bak"
 sed -i \
     -e 's/^#Color/Color/' \
     -e 's/^#VerbosePkgLists/VerbosePkgLists/' \
-    -e 's/^#ParallelDownloads = 5/ParallelDownloads = 2/' \
-    -e '/^\[multilib\]/{s/^#//;n;s/^#Include/Include/}' \
+    -e 's/^ParallelDownloads = .*/ParallelDownloads = 2/' \
+    -e '/^#\[multilib\]$/{
+        s/^#\[multilib\]/[multilib]/;
+        n;
+        s/^#Include/Include/;
+    }' \
     "$PACMAN_CONF"
 
 # Add ILoveCandy below #DisableSandboxSyscalls if not already present
