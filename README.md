@@ -41,12 +41,11 @@ to a fully working system.
 - [2. SYSTEM ENVIRONMENT](#2-system-environment)
     - [2.1 CHROOT](#21-chroot)
     - [2.2 DEPLOY SCRIPT](#22-deploy-script)
-    - [2.3 ROOT PASSWORD](#23-root-password)
-    - [2.4 MULTILIB](#24-multilib)
-    - [2.5 USER AND OWNERSHIP](#25-user-and-ownership)
-    - [2.6 REMOUNT AND SYSTEMD-BOOT](#26-remount-and-systemd-boot)
-    - [2.7 LOADER SCRIPT](#27-loader-script)
-    - [2.8 REBOOT](#28-reboot)
+    - [2.3 ROOT PASSWORD AND USER](#23-root-password-and-user)
+    - [2.4 OWNERSHIP](#24-ownership)
+    - [2.5 MULTILIB](#25-multilib)
+    - [2.6 EFISTUB](#26-efistub)
+    - [2.7 REBOOT](#27-reboot)
 - [3. POST-INSTALLATION](#3-post-installation)
     - [3.1 USER LOGIN](#31-user-login)
     - [3.2 BOOTSTRAP SCRIPT](#32-bootstrap-script)
@@ -149,67 +148,22 @@ This [deploy script](deploy.sh) configures the following:
 curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/deploy.sh | bash
 ```
 
-### 2.3 ROOT PASSWORD
+### 2.3 FINAL SCRIPT
 
-```sh
-passwd
-```
+> [!NOTE]
+>
+> This will prompt for root and user passowrd.
 
-### 2.4 MULTILIB
+This [final script](final.sh) configures the following:
 
-Add _entries_ and _uncomment_ line: `nvim /etc/pacman.conf`.
+- Root password
+- Create user and groups, password
+- Add sudoers
+- Ownership of `/data`
+- Multilib
+- EFISTUB
 
-```sh
-Color
-VerbosePkgLists
-ILoveCandy
-ParallelDownloads = 2
-
-[multilib]
-Include = /etc/pacman.d/mirrorlist
-```
-
-### 2.5 USER AND OWNERSHIP
-
-```sh
-useradd -m -G users,wheel,video,render,audio,power,input,storage -s /bin/zsh cipherodio
-passwd cipherodio
-
-chown -R cipherodio:cipherodio /data
-
-# Sudoers
-EDITOR=nvim visudo -f /etc/sudoers.d/00_cipherodio
-
-# Add:
-cipherodio ALL=(ALL) ALL
-```
-
-### 2.6 REMOUNT AND SYSTEMD-BOOT
-
-Remount the filesystem to avoid potential errors with `bootctl install`.
-
-```sh
-exit
-umount -R /mnt
-mount /dev/nvme0n1p2 /mnt
-arch-chroot /mnt
-mount -a
-
-bootctl install
-```
-
-### 2.7 LOADER SCRIPT
-
-This [loader script](loader.sh) configures the following:
-
-- Configure entries in: `/boot/loader/loader.conf`
-- Add loader entries: `/boot/loader/entries/arch.conf`
-
-```sh
-curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/loader.sh | bash
-```
-
-### 2.8 REBOOT
+### 2.7 REBOOT
 
 Exit chroot, unmount drives, and reboot.
 
