@@ -75,11 +75,5 @@ msg "Generating fstab"
 
 genfstab -U /mnt >>/mnt/etc/fstab
 
-# Secure EFI mount
-sed -i '/\/efi/ s|\(vfat[[:space:]]*\)[^[:space:]]*|\1rw,relatime,fmask=0077,dmask=0077|' /mnt/etc/fstab
-
-# Data performance tweak
-sed -i '/\/data/ s|\(ext4[[:space:]]*\)[^[:space:]]*|\1rw,noatime|' /mnt/etc/fstab
-
 msg "Preinstall complete."
 msg "Now run: arch-chroot /mnt"
