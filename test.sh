@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Usage:
-# curl -fsSL https://.../final.sh | USERNAME='myuser' USER_PASSWORD='mypass' bash
+# curl -fsSL https://.../final.sh | CREATEUSER='myuser' CREATEUSERPASS='mypass' bash
 
 set -Eeuo pipefail
 
@@ -11,12 +11,15 @@ die() {
 }
 
 # Require environment vars
-[ -z "${USERNAME:-}" ] && die "USERNAME is not set. Use: USERNAME='myuser' ..."
-[ -z "${USER_PASSWORD:-}" ] && die "USER_PASSWORD is not set. Use: USER_PASSWORD='mypass' ..."
+[ -z "${CREATEUSER:-}" ] && die "CREATEUSER is not set"
+[ -z "${CREATEUSERPASS:-}" ] && die "CREATEUSERPASS is not set"
 
-# Basic sanity check (optional but smart)
-if [[ "$USERNAME" =~ [^a-z_][^a-z0-9_-]* ]]; then
-    die "Invalid USERNAME"
+USERNAME="$CREATEUSER"
+PASSWORD="$CREATEUSERPASS"
+
+# Optional: basic username validation (safe but simple)
+if ! [[ "$USERNAME" =~ ^[a-z_][a-z0-9_-]*$ ]]; then
+    die "Invalid username format"
 fi
 
 # Create user
@@ -31,7 +34,7 @@ fi
 
 # Set password
 msg "Setting password for '$USERNAME'"
-echo "${USERNAME}:${USER_PASSWORD}" | chpasswd || die "Failed to set password"
+echo "${USERNAME}:${PASSWORD}" | chpasswd || die "Failed to set password"
 
 # Configure sudoers
 SUDO_FILE="/etc/sudoers.d/00_${USERNAME}"
