@@ -4,6 +4,7 @@
 
 set -Eeuo pipefail
 
+# Env variables
 REPO_BASE="https://gitlab.com/cipherodio"
 DOTS_REPO="$REPO_BASE/archdots.git"
 
@@ -11,12 +12,9 @@ HOME_DIR="$HOME"
 DOTS_DIR="$HOME_DIR/.config/.dots"
 
 # Helpers
-msg() {
-    printf '\033[1;92m==>\033[0m %s\n' "$1"
-}
-
+msg() { printf "\033[1;92m==>\033[0m %s\n" "$1"; }
 die() {
-    printf '\033[1;31merror:\033[0m %s\n' "$1" >&2
+    printf "\033[1;31merror:\033[0m %s\n" "$1" >&2
     exit 1
 }
 

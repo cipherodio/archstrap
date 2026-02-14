@@ -7,15 +7,14 @@
 
 set -Eeuo pipefail
 
+# Env variables
 DISK="/dev/nvme0n1"
 DATA_DISK="/dev/nvme1n1"
 
-msg() {
-    printf '\033[1;94m==>\033[0m %s\n' "$1"
-}
-
-[[ $EUID -ne 0 ]] && {
-    echo "Run as root from Arch ISO" >&2
+# Helpers
+msg() { printf "\033[1;92m==>\033[0m %s\n" "$1"; }
+die() {
+    printf "\033[1;31merror:\033[0m %s\n" "$1" >&2
     exit 1
 }
 
@@ -47,14 +46,11 @@ mkfs.ext4 -F "${DATA_DISK}p1"
 # 4. Mount filesystems
 msg "Mounting filesystems"
 
-# Ill keep this for now, in case below one doesn't work
-# mount "${DISK}p2" /mnt
-# mount --mkdir "${DISK}p1" /mnt/boot
-# mount --mkdir "${DATA_DISK}p1" /mnt/data
-
 mount "${DISK}p2" /mnt
 mount --mkdir -o rw,relatime,fmask=0077,dmask=0077 "${DISK}p1" /mnt/boot
 mount --mkdir -o rw,noatime "${DATA_DISK}p1" /mnt/data
+
+msg "All drives are ready"
 
 # 5. Set mirrorlist
 msg "Setting mirrorlist"
@@ -66,6 +62,8 @@ Server = https://hk.mirrors.cicku.me/archlinux/$repo/os/$arch
 Server = https://singapore.mirror.pkgbuild.com/archlinux/$repo/os/$arch
 EOF
 
+msg "Mirrors is set"
+
 # 6. Install base system
 msg "Installing base system"
 
@@ -75,6 +73,8 @@ pacstrap -K /mnt \
     git neovim networkmanager iwd \
     bluez bluez-utils terminus-font \
     cpupower zsh efibootmgr
+
+msg "Base system installed"
 
 # 7. Generate fstab
 msg "Generating fstab"

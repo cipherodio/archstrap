@@ -9,13 +9,12 @@
 
 set -Eeuo pipefail
 
-# Safety
 [[ $EUID -eq 0 ]] && {
     echo "error: do not run setup.sh as root" >&2
     exit 1
 }
 
-# Variables
+# Env variables
 HOME_DIR="$HOME"
 GPG_DIR="$HOME_DIR/.gnupg"
 
@@ -37,12 +36,9 @@ PROFILES_INI="$FIREFOX_DIR/profiles.ini"
 CHROME_SRC="$HOME_DIR/.config/firefox/chrome/onedark"
 
 # Helpers
-msg() {
-    printf '\033[1;92m==>\033[0m %s\n' "$1"
-}
-
+msg() { printf "\033[1;92m==>\033[0m %s\n" "$1"; }
 die() {
-    printf '\033[1;31merror:\033[0m %s\n' "$1" >&2
+    printf "\033[1;31merror:\033[0m %s\n" "$1" >&2
     exit 1
 }
 
@@ -109,6 +105,8 @@ else
     msg "No GnuPG directory found, skipping"
 fi
 
+msg "GnuPG permissions is set"
+
 # GitLab SSH check
 msg "Checking GitLab SSH access"
 
@@ -124,27 +122,37 @@ fi
 
 # Archstrap
 msg "Processing archstrap"
+
 clone_if_missing "$ARCHSTRAP_REPO" "$SRC_DIR/archstrap"
+
 msg "Done processing archstrap"
 
 # Startpage
 msg "Processing startpage"
+
 clone_if_missing "$STARTPAGE_REPO" "$SRC_DIR/startpage"
+
 msg "Done processing startpage"
 
 # Notes
 msg "Processing notes"
+
 clone_if_missing "$NOTES_REPO" "$SRC_DIR/mdnotes"
+
 msg "Done processing notes"
 
 # Podcast
 msg "Processing podcast"
+
 clone_if_missing "$PODCAST_REPO" "$SRC_DIR/podcast"
+
 msg "Done processing podcast"
 
 # NPM packages
 msg "Installing NPM packages"
+
 npm install -g markdown-toc
+
 msg "Done installing NPM packages"
 
 # Firefox user.js + chrome CSS
@@ -193,5 +201,5 @@ git --git-dir="$DOTS_DIR" --work-tree="$HOME_DIR" \
 
 msg "Done fixing git remotes"
 
-# Done
 msg "setup.sh complete"
+msg "Restore gpg keys now"

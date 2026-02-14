@@ -37,15 +37,12 @@ to a fully working system.
     - [1.2 WIPE DISK](#12-wipe-disk)
     - [1.3 CONNECT TO THE INTERNET](#13-connect-to-the-internet)
     - [1.4 UPDATE SYSTEM CLOCK](#14-update-system-clock)
-    - [1.5 PRE-INSTALL SCRIPT](#15-pre-install-script)
+    - [1.5 CONFIGURE SCRIPT](#15-configure-script)
 - [2. SYSTEM ENVIRONMENT](#2-system-environment)
     - [2.1 CHROOT](#21-chroot)
-    - [2.2 DEPLOY SCRIPT](#22-deploy-script)
-    - [2.3 ROOT PASSWORD AND USER](#23-root-password-and-user)
-    - [2.4 OWNERSHIP](#24-ownership)
-    - [2.5 MULTILIB](#25-multilib)
-    - [2.6 EFISTUB](#26-efistub)
-    - [2.7 REBOOT](#27-reboot)
+    - [2.2 CREATE ROOT PASSWORD](#22-create-root-password)
+    - [2.3 DEPLOY SCRIPT](#23-deploy-script)
+    - [2.4 REBOOT](#24-reboot)
 - [3. POST-INSTALLATION](#3-post-installation)
     - [3.1 USER LOGIN](#31-user-login)
     - [3.2 BOOTSTRAP SCRIPT](#32-bootstrap-script)
@@ -59,7 +56,7 @@ to a fully working system.
 ### 1.1 CHANGE CONSOLE FONT
 
 ```sh
-setfont ter-132b
+setfont ter-128b
 ```
 
 ### 1.2 WIPE DISK
@@ -100,7 +97,7 @@ timedatectl status
 timedatectl set-ntp true
 ```
 
-### 1.5 PRE-INSTALL SCRIPT
+### 1.5 CONFIGURE SCRIPT
 
 Before running, verify disk with: `lsblk`. This
 [preinstall script](preinstall.sh) configures the following:
@@ -114,7 +111,7 @@ Before running, verify disk with: `lsblk`. This
 - Generate fstab
 
 ```sh
-curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/preinstall.sh | bash
+curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/configure.sh | bash
 ```
 
 ## 2. SYSTEM ENVIRONMENT
@@ -127,7 +124,13 @@ Chroot to the new system environment.
 arch-chroot /mnt
 ```
 
-### 2.2 DEPLOY SCRIPT
+### 2.2 CREATE ROOT PASSWORD
+
+```sh
+passwd
+```
+
+### 2.3 DEPLOY SCRIPT
 
 This [deploy script](deploy.sh) configures the following:
 
@@ -143,31 +146,17 @@ This [deploy script](deploy.sh) configures the following:
 - Watchdog
 - Battery
 - CPU
-
-```sh
-curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/deploy.sh | bash
-```
-
-### 2.3 FINAL SCRIPT
-
-> [!NOTE]
->
-> This will prompt for root and user passowrd.
-
-This [final script](final.sh) configures the following:
-
-- Root password
-- Create user and groups, password
-- Add sudoers
-- Ownership of `/data`
-- Multilib
+- User and password creation
+- Configure sudoers
+- Set ownership for /data
+- Pacman configuration
 - EFISTUB
 
 ```sh
-curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/final.sh | bash
+curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/deploy.sh | CREATEUSER='myuser' USERPASS='mypass' bash
 ```
 
-### 2.7 REBOOT
+### 2.4 REBOOT
 
 Exit chroot, unmount drives, and reboot.
 
