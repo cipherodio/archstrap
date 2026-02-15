@@ -68,11 +68,11 @@ setfont ter-128b
 > Wipe DISK: `wipefs -af /dev/nvme0n1`
 >
 > Wipe DATA_DISK: `wipefs -af /dev/nvme1n1`
-
-Prerequisite disk names should match:
-
-- **`nvme0n1`**: 500GB
-- **`nvme1n1`**: 1TB
+>
+> Prerequisite disk names should match:
+>
+> - **`nvme0n1`**: 500GB
+> - **`nvme1n1`**: 1TB
 
 ### 1.3 CONNECT TO THE INTERNET
 
