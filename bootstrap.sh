@@ -62,6 +62,8 @@ PKGS=(
     gimp inkscape poppler spotify-launcher
     tesseract tesseract-data-eng tesseract-data-osd
     zathura zathura-pdf-mupdf
+    # Needed for shotcut to work
+    qt6-svg qt6-5compat
     # Cli
     lf calcurse newsboat transmission-cli taskwarrior-tui
     # Python
