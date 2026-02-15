@@ -28,7 +28,7 @@ to a fully working system.
 - UEFI
 - GPT partition table
 - AMD GPU
-- EFISTUB
+- EFISTUB or systemd-boot
 
 <!-- toc -->
 
@@ -37,17 +37,20 @@ to a fully working system.
     - [1.2 WIPE DISK](#12-wipe-disk)
     - [1.3 CONNECT TO THE INTERNET](#13-connect-to-the-internet)
     - [1.4 UPDATE SYSTEM CLOCK](#14-update-system-clock)
-    - [1.5 CONFIGURE SCRIPT](#15-configure-script)
+    - [1.5 PRE-CHROOT](#15-pre-chroot)
 - [2. SYSTEM ENVIRONMENT](#2-system-environment)
     - [2.1 CHROOT](#21-chroot)
     - [2.2 CREATE ROOT PASSWORD](#22-create-root-password)
-    - [2.3 DEPLOY SCRIPT](#23-deploy-script)
-    - [2.4 REBOOT](#24-reboot)
+    - [2.3 CONFIGURE](#23-configure)
+    - [2.4 BOOTLOADER](#24-bootloader)
+        - [2.4.1 EFISTUB](#241-efistub)
+        - [2.4.2 SYSTEMD-BOOT](#242-systemd-boot)
+    - [2.5 REBOOT](#25-reboot)
 - [3. POST-INSTALLATION](#3-post-installation)
     - [3.1 USER LOGIN](#31-user-login)
-    - [3.2 BOOTSTRAP SCRIPT](#32-bootstrap-script)
+    - [3.2 BOOTSTRAP](#32-bootstrap)
     - [3.3 SSH](#33-ssh)
-    - [3.4 SETUP SCRIPT](#34-setup-script)
+    - [3.4 SETUP](#34-setup)
 
 <!-- tocstop -->
 
@@ -100,10 +103,10 @@ timedatectl status
 timedatectl set-ntp true
 ```
 
-### 1.5 CONFIGURE SCRIPT
+### 1.5 PRE-CHROOT
 
 Before running, verify disk with: `lsblk`. This
-[configure script](configure.sh) configures the following:
+[pre-chroot script](prechroot.sh) configures the following:
 
 - Partition main disk
 - Partition data disk
@@ -114,7 +117,7 @@ Before running, verify disk with: `lsblk`. This
 - Generate fstab
 
 ```sh
-curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/configure.sh | bash
+curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/prechroot.sh | bash
 ```
 
 ## 2. SYSTEM ENVIRONMENT
@@ -133,9 +136,9 @@ arch-chroot /mnt
 passwd
 ```
 
-### 2.3 DEPLOY SCRIPT
+### 2.3 CONFIGURE
 
-This [deploy script](deploy.sh) configures the following:
+This [configure script](configure.sh) configures the following:
 
 - Time
 - Locale
@@ -155,7 +158,7 @@ This [deploy script](deploy.sh) configures the following:
 - Pacman configuration
 
 ```sh
-curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/deploy.sh | CREATEUSER='myuser' USERPASS='mypass' bash
+curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/configure.sh | CREATEUSER='myuser' USERPASS='mypass' bash
 ```
 
 ### 2.4 BOOTLOADER
@@ -212,7 +215,7 @@ nmtui
 sudo pacman -Syu
 ```
 
-### 3.2 BOOTSTRAP SCRIPT
+### 3.2 BOOTSTRAP
 
 This [bootstrap script](bootstrap.sh) configures the following:
 
@@ -236,7 +239,7 @@ Add SSH key to [GitLab][gitlab]
 cat ~/.ssh/gitlabkey.pub | xclip -selection clipboard
 ```
 
-### 3.4 SETUP SCRIPT
+### 3.4 SETUP
 
 This [setup script](setup.sh) configures the following:
 
