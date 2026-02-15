@@ -100,7 +100,7 @@ timedatectl set-ntp true
 ### 1.5 CONFIGURE SCRIPT
 
 Before running, verify disk with: `lsblk`. This
-[preinstall script](preinstall.sh) configures the following:
+[configure script](configure.sh) configures the following:
 
 - Partition main disk
 - Partition data disk
