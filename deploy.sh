@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 # Author: cipherodio
-# Description: Full Arch Linux post-chroot deployment
+# Description: Arch Linux post-chroot deployment
 # - Sets timezone, locale, hostname, network, services
 # - Configures console, touchpad, keyboard, watchdog, battery, CPU
 # - Creates user, configures pacman, sets /data ownership
-# - Creates NVMe EFISTUB boot entry
 # Assumes:
 #   - You are already chroot in the new system environment
 #   - Connected to the internet with iwctl
@@ -199,30 +198,4 @@ sed -i \
 grep -q '^ILoveCandy' "$PACMAN_CONF" || sed -i '/^#DisableSandboxSyscalls/a ILoveCandy' "$PACMAN_CONF"
 
 msg "Done! pacman.conf configured"
-
-# 15. EFISTUB boot entry (NVMe only)
-msg "Creating EFISTUB boot entry"
-
-EFI_PART=$(findmnt -nr -o SOURCE /boot)
-ROOT_PART=$(findmnt -nr -o SOURCE /)
-ROOT_UUID=$(blkid -s UUID -o value "$ROOT_PART")
-[[ -n "$ROOT_UUID" ]] || die "Failed to detect root UUID"
-
-msg "Root partition: $ROOT_PART"
-msg "EFI partition: $EFI_PART"
-msg "Root UUID: $ROOT_UUID"
-
-EFI_DISK="${EFI_PART%p*}"
-EFI_PART_NUM="${EFI_PART##*p}"
-
-msg "EFI disk: $EFI_DISK"
-msg "EFI partition number: $EFI_PART_NUM"
-
-efibootmgr -d "$EFI_DISK" \
-    -p "$EFI_PART_NUM" \
-    -c -L "ArchLinux" \
-    -l /vmlinuz-linux \
-    -u "root=UUID=$ROOT_UUID rw quiet loglevel=0 console=tty2 amd_pstate=passive modprobe.blacklist=sp5100_tco nmi_watchdog=0 ipv6.disable=1 rd.systemd.show_status=false rd.udev.log_level=3 initrd=\\amd-ucode.img initrd=\\initramfs-linux.img"
-
-msg "EFISTUB entry created successfully!"
-msg "All setup complete! You can now exit chroot and reboot."
+msg "You many now install a bootloader EFISTUB or systemd-boot."
