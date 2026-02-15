@@ -65,14 +65,18 @@ setfont ter-128b
 >
 > Verify disk names with `lsblk` before running `preinstall.sh`.
 >
-> Wipe DISK: `wipefs -af /dev/nvme0n1`
->
-> Wipe DATA_DISK: `wipefs -af /dev/nvme1n1`
->
 > Prerequisite disk names should match:
 >
 > - **`nvme0n1`**: 500GB
 > - **`nvme1n1`**: 1TB
+
+```sh
+# DISK
+wipefs -af /dev/nvme0n1
+
+# DATA_DISK
+wipefs -af /dev/nvme1n1
+```
 
 ### 1.3 CONNECT TO THE INTERNET
 
@@ -169,8 +173,8 @@ reboot
 
 ### 3.1 USER LOGIN
 
-Log in as user **cipherodio**, connect to the internet, and update the
-system.
+Log in with your created username, connect to the internet, and update
+the system.
 
 ```sh
 nmtui
