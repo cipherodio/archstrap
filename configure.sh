@@ -69,7 +69,7 @@ msg "Bluetooth service enabled"
 # Console font
 msg "Setting console font"
 vconsole_conf="/etc/vconsole.conf"
-echo "FONT=ter-128b" >"$vconsole_conf"
+echo "FONT=ter-124b" >"$vconsole_conf"
 msg "Console font is set"
 
 # Touchpad tapping
