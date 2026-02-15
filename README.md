@@ -28,7 +28,7 @@ to a fully working system.
 - UEFI
 - GPT partition table
 - AMD GPU
-- systemd-boot
+- EFISTUB
 
 <!-- toc -->
 
