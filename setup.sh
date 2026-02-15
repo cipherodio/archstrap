@@ -14,27 +14,6 @@ set -Eeuo pipefail
     exit 1
 }
 
-# Env variables
-HOME_DIR="$HOME"
-GPG_DIR="$HOME_DIR/.gnupg"
-
-REPO_BASE="git@gitlab.com:cipherodio/"
-ARCHSTRAP_REPO="${REPO_BASE}archstrap.git"
-STARTPAGE_REPO="${REPO_BASE}startpage.git"
-NOTES_REPO="${REPO_BASE}mdnotes.git"
-PODCAST_REPO="${REPO_BASE}podcast.git"
-
-HUB_DIR="$HOME_DIR/hub"
-HUB2_DIR="/data/hub2"
-SRC_DIR="$HUB_DIR/src"
-DOTS_DIR="$HOME_DIR/.config/.dots"
-
-FIREFOX_SRC="$HOME_DIR/.config/firefox/user.js"
-FIREFOX_DIR="$HOME_DIR/.config/mozilla/firefox"
-PROFILES_INI="$FIREFOX_DIR/profiles.ini"
-
-CHROME_SRC="$HOME_DIR/.config/firefox/chrome/onedark"
-
 # Helpers
 msg() { printf "\033[1;92m==>\033[0m %s\n" "$1"; }
 die() {
@@ -57,6 +36,27 @@ clone_if_missing() {
     fi
 }
 
+# Env variables
+HOME_DIR="$HOME"
+GPG_DIR="$HOME_DIR/.gnupg"
+
+REPO_BASE="git@gitlab.com:cipherodio/"
+ARCHSTRAP_REPO="${REPO_BASE}archstrap.git"
+STARTPAGE_REPO="${REPO_BASE}startpage.git"
+NOTES_REPO="${REPO_BASE}mdnotes.git"
+PODCAST_REPO="${REPO_BASE}podcast.git"
+
+HUB_DIR="$HOME_DIR/hub"
+HUB2_DIR="/data/hub2"
+SRC_DIR="$HUB_DIR/src"
+DOTS_DIR="$HOME_DIR/.config/.dots"
+
+FIREFOX_SRC="$HOME_DIR/.config/firefox/user.js"
+FIREFOX_DIR="$HOME_DIR/.config/mozilla/firefox"
+PROFILES_INI="$FIREFOX_DIR/profiles.ini"
+
+CHROME_SRC="$HOME_DIR/.config/firefox/chrome/onedark"
+
 # Preconditions
 msg "Checking required commands"
 command -v git >/dev/null || die "git not installed"
@@ -65,7 +65,6 @@ msg "All required commands available"
 
 # User directories
 msg "Creating hub directory structure"
-
 mkdir -p \
     "$HUB_DIR"/{downloads,review,screencapture,screenshot,src} \
     "$HUB_DIR/data"/{documents,music,videos,wallpapers} \
@@ -75,12 +74,10 @@ mkdir -p \
     "$HUB_DIR/projects/shotcut"/{mlts,output,raw,save} \
     "$HUB_DIR/projects/gimp"/{output,raw,save} \
     "$HOME_DIR/.venv"
-
 msg "Done creating hub directory structure"
 
 # Hub2 directories
 msg "Creating hub2 directory structure"
-
 mkdir -p \
     "$HUB2_DIR/data"/{documents,music,videos,wallpapers} \
     "$HUB2_DIR/projects"/{main,audacity,blender,shotcut,gimp} \
@@ -88,12 +85,10 @@ mkdir -p \
     "$HUB2_DIR/projects/blender"/{output,raw,save} \
     "$HUB2_DIR/projects/shotcut"/{mlts,output,raw,save} \
     "$HUB2_DIR/projects/gimp"/{output,raw,save}
-
 msg "Done creating hub2 directory structure"
 
 # GnuPG permissions
 msg "Setting GnuPG permissions"
-
 if [[ -d "$GPG_DIR" ]]; then
     find "$GPG_DIR" -type d -exec chmod 700 {} \;
     find "$GPG_DIR" -type f -exec chmod 600 {} \;
@@ -104,12 +99,10 @@ if [[ -d "$GPG_DIR" ]]; then
 else
     msg "No GnuPG directory found, skipping"
 fi
-
 msg "GnuPG permissions is set"
 
 # GitLab SSH check
 msg "Checking GitLab SSH access"
-
 if git ls-remote "$ARCHSTRAP_REPO" >/dev/null 2>&1; then
     msg "GitLab SSH access OK"
 else
@@ -122,37 +115,27 @@ fi
 
 # Archstrap
 msg "Processing archstrap"
-
 clone_if_missing "$ARCHSTRAP_REPO" "$SRC_DIR/archstrap"
-
 msg "Done processing archstrap"
 
 # Startpage
 msg "Processing startpage"
-
 clone_if_missing "$STARTPAGE_REPO" "$SRC_DIR/startpage"
-
 msg "Done processing startpage"
 
 # Notes
 msg "Processing notes"
-
 clone_if_missing "$NOTES_REPO" "$SRC_DIR/mdnotes"
-
 msg "Done processing notes"
 
 # Podcast
 msg "Processing podcast"
-
 clone_if_missing "$PODCAST_REPO" "$SRC_DIR/podcast"
-
 msg "Done processing podcast"
 
 # NPM packages
 msg "Installing NPM packages"
-
 npm install -g markdown-toc
-
 msg "Done installing NPM packages"
 
 # Firefox user.js + chrome CSS
@@ -195,10 +178,8 @@ fi
 
 # Change dotfiles remote (HTTPS → SSH)
 msg "Fixing dotfiles git remote"
-
 git --git-dir="$DOTS_DIR" --work-tree="$HOME_DIR" \
     remote set-url origin git@gitlab.com:cipherodio/archdots.git
-
 msg "Done fixing git remotes"
 
 msg "setup.sh complete"

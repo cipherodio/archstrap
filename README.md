@@ -180,19 +180,6 @@ curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/efistub.sh | bash
 curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/systemdboot.sh | bash
 ```
 
-Remount before running `bootctl install` to avoid:
-`Random seed file world is accessible, which is a security hole!`
-
-```sh
-exit
-umount -R /mnt
-mount /dev/nvme0n1p2 /mnt
-arch-chroot /mnt
-mount -a
-
-bootctl install
-```
-
 ### 2.5 REBOOT
 
 Exit chroot, unmount drives, and reboot.

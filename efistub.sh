@@ -36,4 +36,5 @@ efibootmgr -d "$EFI_DISK" \
     -u "root=UUID=$ROOT_UUID rw quiet loglevel=0 console=tty2 amd_pstate=passive modprobe.blacklist=sp5100_tco nmi_watchdog=0 ipv6.disable=1 rd.systemd.show_status=false rd.udev.log_level=3 initrd=\\amd-ucode.img initrd=\\initramfs-linux.img"
 
 msg "EFISTUB entry created successfully!"
-msg "All setup complete! You can now exit chroot and reboot."
+
+msg "You can now exit chroot and reboot."

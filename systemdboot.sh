@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Author: cipherodio
-# Description: systemd-boot loader configuration
+# Description: Fully automated systemd-boot setup for Arch
+# Remounts /boot securely inside chroot, configures loader, and
+# installs systemd-boot
 
 set -Eeuo pipefail
 
@@ -11,21 +13,27 @@ die() {
     exit 1
 }
 
+# Env variables
 BOOT_DIR="/boot"
 LOADER_CONF="$BOOT_DIR/loader/loader.conf"
 ENTRY_DIR="$BOOT_DIR/loader/entries"
 ENTRY_CONF="$ENTRY_DIR/arch.conf"
 
-# 1. Detect root UUID
+# Remount /boot according to fstab
+msg "Remounting /boot to ensure fstab options are applied"
+mountpoint -q /boot || die "/boot is not mounted! Mount the EFI partition before running this script."
+mount -o remount /boot || die "Failed to remount /boot"
+msg "/boot remounted successfully"
+
+# Detect root UUID from mounted root
 ROOT_PART="$(findmnt -n -o SOURCE /)"
 ROOT_UUID="$(blkid -s UUID -o value "$ROOT_PART")"
-[[ -n "$ROOT_UUID" ]] || die "Failed to detect root UUID"
-
+[[ -n "$ROOT_UUID" ]] || die "Failed to detect root UUID from mounted root"
 msg "Detected root UUID: $ROOT_UUID"
 
-# 2. Create loader.conf
+# Create loader.conf
 msg "Creating loader.conf"
-
+mkdir -p "$ENTRY_DIR"
 cat >"$LOADER_CONF" <<'EOF'
 default arch
 timeout 0
@@ -33,9 +41,8 @@ console-mode max
 editor no
 EOF
 
-# 3. Create arch.conf entry
+# Create arch.conf entry
 msg "Creating arch.conf entry"
-
 cat >"$ENTRY_CONF" <<EOF
 title   Arch Linux
 linux   /vmlinuz-linux
@@ -45,6 +52,11 @@ options root=UUID=$ROOT_UUID rw quiet loglevel=0 console=tty2 amd_pstate=passive
 modprobe.blacklist=sp5100_tco nmi_watchdog=0 ipv6.disable=1 \
 rd.systemd.show_status=false rd.udev.log_level=3
 EOF
+msg "Loader files created successfully"
 
-msg "Systemd-boot loader configured successfully!"
-msg "All setup complete! You can now exit chroot and reboot."
+# Install systemd-boot
+msg "Installing systemd-boot to EFI partition"
+bootctl install || die "bootctl install failed"
+msg "Systemd-boot installed successfully!"
+
+msg "You can now exit chroot and reboot."

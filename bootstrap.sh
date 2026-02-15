@@ -4,13 +4,6 @@
 
 set -Eeuo pipefail
 
-# Env variables
-REPO_BASE="https://gitlab.com/cipherodio"
-DOTS_REPO="$REPO_BASE/archdots.git"
-
-HOME_DIR="$HOME"
-DOTS_DIR="$HOME_DIR/.config/.dots"
-
 # Helpers
 msg() { printf "\033[1;92m==>\033[0m %s\n" "$1"; }
 die() {
@@ -22,6 +15,12 @@ need() {
     command -v "$1" >/dev/null 2>&1 || die "missing dependency: $1"
 }
 
+# Env variables
+REPO_BASE="https://gitlab.com/cipherodio"
+DOTS_REPO="$REPO_BASE/archdots.git"
+HOME_DIR="$HOME"
+DOTS_DIR="$HOME_DIR/.config/.dots"
+
 # Preconditions
 need sudo
 need git
@@ -29,7 +28,6 @@ need git
 sudo -v
 msg "Starting Arch one-shot bootstrap"
 msg "Done checking prerequisites"
-
 # System packages
 PKGS=(
     # X / Display
@@ -75,9 +73,7 @@ PKGS=(
     tree-sitter-cli vscode-json-languageserver yaml-language-server
 )
 msg "Installing ${#PKGS[@]} system packages"
-
 sudo pacman -Syu --needed --noconfirm "${PKGS[@]}"
-
 msg "Done installing ${#PKGS[@]} system packages"
 
 # Verify pip
@@ -87,11 +83,9 @@ msg "Done verifying pip"
 
 # Dotfiles (bare repo)
 msg "Installing dotfiles"
-
 if [[ ! -d "$DOTS_DIR" ]]; then
     git clone --bare "$DOTS_REPO" "$DOTS_DIR"
 fi
-
 git --git-dir="$DOTS_DIR" --work-tree="$HOME_DIR" checkout -f
 msg "Done installing dotfiles"
 
@@ -113,7 +107,6 @@ msg "Done installing Python user packages"
 
 # SSH key
 msg "Ensuring SSH key exists"
-
 if [[ ! -f "$HOME_DIR/.ssh/gitlabkey" ]]; then
     mkdir -p "$HOME_DIR/.ssh"
     ssh-keygen -t ed25519 \
@@ -121,7 +114,6 @@ if [[ ! -f "$HOME_DIR/.ssh/gitlabkey" ]]; then
         -C "cipherodio@gmail.com" \
         -N ""
 fi
-
 msg "Done ensuring SSH key"
 
 # Done
