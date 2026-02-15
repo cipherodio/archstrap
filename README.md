@@ -63,8 +63,7 @@ setfont ter-128b
 
 > [!IMPORTANT]
 >
-> **Important:** Verify disk names with `lsblk` before running
-> `preinstall.sh`.
+> Verify disk names with `lsblk` before running `preinstall.sh`.
 >
 > Wipe DISK: `wipefs -af /dev/nvme0n1`
 >
