@@ -86,7 +86,12 @@ msg "Installing dotfiles"
 if [[ ! -d "$DOTS_DIR" ]]; then
     git clone --bare "$DOTS_REPO" "$DOTS_DIR"
 fi
+git --git-dir="$DOTS_DIR" config \
+    remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+git --git-dir="$DOTS_DIR" fetch origin
 git --git-dir="$DOTS_DIR" --work-tree="$HOME_DIR" checkout -f
+git --git-dir="$DOTS_DIR" \
+    branch --set-upstream-to=origin/main main 2>/dev/null || true
 msg "Done installing dotfiles"
 
 # Cleanup legacy files
