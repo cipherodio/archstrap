@@ -38,6 +38,7 @@ clone_if_missing() {
 
 # Env variables
 HOME_DIR="$HOME"
+HOME_DATA="$HOME_DIR/.local/share"
 GPG_DIR="$HOME_DIR/.gnupg"
 
 REPO_BASE="git@gitlab.com:cipherodio/"
@@ -74,7 +75,8 @@ mkdir -p \
     "$HUB_DIR/projects/shotcut"/{mlts,output,raw,save} \
     "$HUB_DIR/projects/gimp"/{output,raw,save} \
     "$HOME_DIR/.venv" \
-    "$HOME_DIR/.config/mpd/playlists"
+    "$HOME_DIR/.config/mpd/playlists" \
+    "$HOME_DATA/fonts"
 msg "Done creating hub directory structure"
 
 # Hub2 directories
