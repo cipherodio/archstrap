@@ -73,7 +73,8 @@ mkdir -p \
     "$HUB_DIR/projects/blender"/{output,raw,save} \
     "$HUB_DIR/projects/shotcut"/{mlts,output,raw,save} \
     "$HUB_DIR/projects/gimp"/{output,raw,save} \
-    "$HOME_DIR/.venv"
+    "$HOME_DIR/.venv" \
+    "$HOME_DIR/.config/mpd/playlists"
 msg "Done creating hub directory structure"
 
 # Hub2 directories
