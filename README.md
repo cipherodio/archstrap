@@ -59,7 +59,7 @@ to a fully working system.
 ### 1.1 CHANGE CONSOLE FONT
 
 ```sh
-setfont ter-128b
+setfont ter-124b
 ```
 
 ### 1.2 WIPE DISK
