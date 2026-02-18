@@ -76,7 +76,8 @@ mkdir -p \
     "$HUB_DIR/projects/gimp"/{output,raw,save} \
     "$HOME_DIR/.venv" \
     "$HOME_DIR/.config/mpd/playlists" \
-    "$HOME_DATA/fonts"
+    "$HOME_DATA/fonts" \
+    "$HOME_DATA/pki"
 msg "Done creating hub directory structure"
 
 # Hub2 directories
