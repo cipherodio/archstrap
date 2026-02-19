@@ -63,7 +63,7 @@ PKGS=(
     # Needed for shotcut to work
     qt6-svg qt6-5compat
     # Cli
-    lf calcurse newsboat transmission-cli taskwarrior-tui
+    lf calcurse newsboat transmission-cli taskwarrior-tui trash-cli
     # Python
     python-dbus-next python-iwlib python-mpd2
     python-pip python-psutil python-setproctitle
