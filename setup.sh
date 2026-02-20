@@ -72,7 +72,6 @@ mkdir -p \
     "$HUB_DIR/projects"/{main,audacity,blender,shotcut,gimp} \
     "$HUB_DIR/projects/audacity"/{output,raw,save} \
     "$HUB_DIR/projects/blender"/{output,raw,save} \
-    "$HUB_DIR/projects/shotcut"/{mlts,output,raw,save} \
     "$HUB_DIR/projects/gimp"/{output,raw,save} \
     "$HOME_DIR/.venv" \
     "$HOME_DIR/.config/mpd/playlists" \
