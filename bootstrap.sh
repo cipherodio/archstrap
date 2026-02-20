@@ -35,7 +35,7 @@ PKGS=(
     xorg-xdpyinfo xorg-xev xorg-xinit xorg-xinput xorg-xprop
     xorg-xset xorg-xsetroot xorg-xwininfo xterm
     # Drivers
-    lib32-vulkan-radeon mesa-utils vulkan-tools hip-runtime-amd
+    lib32-vulkan-radeon mesa-utils vulkan-tools
     # Audio
     pipewire pipewire-alsa pipewire-pulse pulsemixer
     # Fonts
@@ -54,14 +54,14 @@ PKGS=(
     feh ffmpeg ffmpegthumbnailer imagemagick mediainfo
     mpc mpd mpv ncmpcpp nsxiv yt-dlp
     # Programs
-    alacritty audacity blender shotcut emacs firefox
+    alacritty audacity blender emacs firefox
     firefox-dark-reader firefox-extension-passff
     firefox-tridactyl firefox-ublock-origin
     gimp inkscape poppler spotify-launcher
     tesseract tesseract-data-eng tesseract-data-osd
     zathura zathura-pdf-mupdf
-    # Needed for shotcut to work
-    qt6-svg qt6-5compat
+    # Needed for shotcut to work, uncomment below if using shotcut
+    # shotcut qt6-svg qt6-5compat hip-runtime-amd
     # Cli
     lf calcurse newsboat transmission-cli taskwarrior-tui trash-cli
     # Python
