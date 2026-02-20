@@ -59,7 +59,7 @@ PKGS=(
     firefox-tridactyl firefox-ublock-origin
     gimp inkscape poppler spotify-launcher
     tesseract tesseract-data-eng tesseract-data-osd
-    zathura zathura-pdf-mupdf
+    signal-desktop zathura zathura-pdf-mupdf
     # Needed for shotcut to work, uncomment below if using shotcut
     # shotcut qt6-svg qt6-5compat hip-runtime-amd
     # Cli
