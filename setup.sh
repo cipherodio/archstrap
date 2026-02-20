@@ -87,7 +87,6 @@ mkdir -p \
     "$HUB2_DIR/projects"/{main,audacity,blender,shotcut,gimp} \
     "$HUB2_DIR/projects/audacity"/{output,raw,save} \
     "$HUB2_DIR/projects/blender"/{output,raw,save} \
-    "$HUB2_DIR/projects/shotcut"/{mlts,output,raw,save} \
     "$HUB2_DIR/projects/gimp"/{output,raw,save}
 msg "Done creating hub2 directory structure"
 
