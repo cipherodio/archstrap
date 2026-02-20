@@ -37,7 +37,7 @@ to a fully working system.
     - [1.2 WIPE DISK](#12-wipe-disk)
     - [1.3 CONNECT TO THE INTERNET](#13-connect-to-the-internet)
     - [1.4 UPDATE SYSTEM CLOCK](#14-update-system-clock)
-    - [1.5 PRE-CHROOT](#15-pre-chroot)
+    - [1.5 INSTALL](#15-install)
 - [2. SYSTEM ENVIRONMENT](#2-system-environment)
     - [2.1 CHROOT](#21-chroot)
     - [2.2 CREATE ROOT PASSWORD](#22-create-root-password)
@@ -103,10 +103,10 @@ timedatectl status
 timedatectl set-ntp true
 ```
 
-### 1.5 PRE-CHROOT
+### 1.5 INSTALL
 
 Before running, verify disk with: `lsblk`. This
-[pre-chroot script](prechroot.sh) configures the following:
+[install script](install.sh) configures the following:
 
 - Partition main disk
 - Partition data disk
@@ -117,7 +117,7 @@ Before running, verify disk with: `lsblk`. This
 - Generate fstab
 
 ```sh
-curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/prechroot.sh | bash
+curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/install.sh | bash
 ```
 
 ## 2. SYSTEM ENVIRONMENT
