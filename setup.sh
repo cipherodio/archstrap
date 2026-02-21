@@ -39,6 +39,7 @@ clone_if_missing() {
 # Env variables
 HOME_DIR="$HOME"
 HOME_DATA="$HOME_DIR/.local/share"
+DATA_DIR="/data"
 GPG_DIR="$HOME_DIR/.gnupg"
 
 REPO_BASE="git@gitlab.com:cipherodio/"
@@ -48,7 +49,7 @@ NOTES_REPO="${REPO_BASE}mdnotes.git"
 PODCAST_REPO="${REPO_BASE}podcast.git"
 
 HUB_DIR="$HOME_DIR/hub"
-HUB2_DIR="/data/hub2"
+HUB2_DIR="$DATA_DIR/hub2"
 SRC_DIR="$HUB_DIR/src"
 DOTS_DIR="$HOME_DIR/.config/.dots"
 
@@ -86,7 +87,8 @@ mkdir -p \
     "$HUB2_DIR/projects"/{main,audacity,blender,shotcut,gimp} \
     "$HUB2_DIR/projects/audacity"/{output,raw,save} \
     "$HUB2_DIR/projects/blender"/{output,raw,save} \
-    "$HUB2_DIR/projects/gimp"/{output,raw,save}
+    "$HUB2_DIR/projects/gimp"/{output,raw,save} \
+    "$DATA_DIR/games"
 msg "Done creating hub2 directory structure"
 
 # GnuPG permissions
