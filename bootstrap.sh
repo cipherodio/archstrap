@@ -48,7 +48,7 @@ PKGS=(
     btop brightnessctl dosfstools evtest exfatprogs
     htop nvtop ntfs-3g pacutils upower reflector
     # Utilities
-    bc fd fzf rofi highlight man-db maim moreutils rsync task
+    bc fd fzf rofi highlight man-db maim moreutils rsync task jq
     pass psutils openssh ripgrep tmux tree unrar unzip wget zip
     # Media
     feh ffmpeg ffmpegthumbnailer imagemagick mediainfo
@@ -68,7 +68,7 @@ PKGS=(
     python-dbus-next python-iwlib python-mpd2
     python-pip python-psutil python-setproctitle
     # Dev
-    bash-language-server lua-language-server marksman prettier
+    bash-language-server lua-language-server marksman prettier tombi
     python-debugpy python-lsp-server ruff shfmt shellcheck stylua
     tree-sitter-cli vscode-json-languageserver yaml-language-server
 )
