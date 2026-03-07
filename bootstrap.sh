@@ -68,7 +68,7 @@ PKGS=(
     python-dbus-next python-iwlib python-mpd2
     python-pip python-psutil python-setproctitle
     # Dev
-    bash-language-server lua-language-server marksman prettier tombi
+    bash-language-server lua-language-server rumdl tombi
     python-debugpy python-lsp-server ruff shfmt shellcheck stylua
     tree-sitter-cli vscode-json-languageserver yaml-language-server
 )
