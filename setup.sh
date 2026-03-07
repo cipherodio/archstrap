@@ -137,11 +137,6 @@ msg "Processing podcast"
 clone_if_missing "$PODCAST_REPO" "$SRC_DIR/podcast"
 msg "Done processing podcast"
 
-# NPM packages
-msg "Installing NPM packages"
-npm install -g markdown-toc
-msg "Done installing NPM packages"
-
 # Firefox user.js + chrome CSS
 msg "Configuring Firefox user.js and chrome CSS"
 
