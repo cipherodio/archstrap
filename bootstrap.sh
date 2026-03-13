@@ -37,7 +37,7 @@ PKGS=(
     # Drivers
     lib32-vulkan-radeon mesa-utils vulkan-tools
     # Audio
-    pipewire pipewire-alsa pipewire-pulse pulsemixer
+    pipewire pipewire-alsa pipewire-pulse pulsemixer alsa-utils
     # Fonts
     libertinus-font noto-fonts noto-fonts-emoji
     ttc-iosevka ttc-iosevka-aile ttf-iosevka-nerd
@@ -104,11 +104,6 @@ msg "Done cleaning legacy files"
 msg "Enabling user services"
 systemctl --user enable --now pipewire-pulse || true
 msg "Done enabling user services"
-
-# Python user packages
-msg "Installing Python user packages"
-pip install --user --upgrade pulsectl-asyncio
-msg "Done installing Python user packages"
 
 # SSH key
 msg "Ensuring SSH key exists"
