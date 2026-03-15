@@ -43,7 +43,7 @@ PKGS=(
     ttc-iosevka ttc-iosevka-aile ttf-iosevka-nerd
     ttf-dejavu ttf-liberation
     # System
-    acpi dunst libnotify npm picom qtile unclutter nim
+    acpi dunst libnotify npm picom awesome unclutter nim
     # System tools
     btop brightnessctl dosfstools evtest exfatprogs
     htop nvtop ntfs-3g pacutils upower reflector
@@ -64,9 +64,9 @@ PKGS=(
     # shotcut qt6-svg qt6-5compat hip-runtime-amd
     # Cli
     lf calcurse newsboat transmission-cli taskwarrior-tui trash-cli
-    # Python
-    python-dbus-next python-iwlib python-mpd2
-    python-pip python-psutil python-setproctitle
+    # Python for Qtile
+    # python-dbus-next python-iwlib python-mpd2
+    # python-pip python-psutil python-setproctitle
     # Dev
     bash-language-server lua-language-server rumdl tombi
     python-debugpy python-lsp-server ruff shfmt shellcheck stylua
@@ -75,11 +75,6 @@ PKGS=(
 msg "Installing ${#PKGS[@]} system packages"
 sudo pacman -Syu --needed --noconfirm "${PKGS[@]}"
 msg "Done installing ${#PKGS[@]} system packages"
-
-# Verify pip
-msg "Verifying pip"
-command -v pip >/dev/null || die "pip not installed"
-msg "Done verifying pip"
 
 # Dotfiles (bare repo)
 msg "Installing dotfiles"
