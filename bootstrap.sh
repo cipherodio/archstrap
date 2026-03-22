@@ -41,9 +41,9 @@ PKGS=(
     # Fonts
     libertinus-font noto-fonts noto-fonts-emoji
     ttc-iosevka ttc-iosevka-aile ttf-iosevka-nerd
-    ttf-dejavu ttf-liberation
+    ttf-dejavu ttf-liberation ttf-jetbrains-mono-nerd
     # System
-    acpi dunst libnotify npm picom awesome unclutter nim
+    acpi dunst libnotify npm picom qtile unclutter nim
     # System tools
     btop brightnessctl dosfstools evtest exfatprogs
     htop nvtop ntfs-3g pacutils upower reflector
@@ -65,8 +65,8 @@ PKGS=(
     # Cli
     lf calcurse newsboat transmission-cli taskwarrior-tui trash-cli
     # Python for Qtile
-    # python-dbus-next python-iwlib python-mpd2
-    # python-pip python-psutil python-setproctitle
+    python-dbus-next python-iwlib python-mpd2
+    python-pip python-psutil python-setproctitle
     # Dev
     bash-language-server lua-language-server rumdl tombi
     python-debugpy python-lsp-server ruff shfmt shellcheck stylua
