@@ -94,7 +94,7 @@ cat >"$keyboard_conf" <<'EOF'
 Section "InputClass"
     Identifier "keyboard defaults"
     MatchIsKeyboard "on"
-    Option "XkbOptions" "caps:escape"
+    Option "XkbOptions" "caps:escape,compose:ralt"
 EndSection
 EOF
 msg "Caps remapped to Escape"
