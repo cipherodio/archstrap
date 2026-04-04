@@ -57,7 +57,7 @@ FIREFOX_SRC="$HOME_DIR/.config/firefox/user.js"
 FIREFOX_DIR="$HOME_DIR/.config/mozilla/firefox"
 PROFILES_INI="$FIREFOX_DIR/profiles.ini"
 
-CHROME_SRC="$HOME_DIR/.config/firefox/chrome/onedark"
+CHROME_SRC="$HOME_DIR/.config/firefox/chrome"
 
 # Preconditions
 msg "Checking required commands"
