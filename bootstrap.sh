@@ -30,7 +30,7 @@ msg "Starting Arch one-shot bootstrap"
 msg "Done checking prerequisites"
 # System packages
 PKGS=(
-    # X / Display
+    # X11
     xcape xclip xdg-utils xdo xdotool
     xorg-xdpyinfo xorg-xev xorg-xinit xorg-xinput xorg-xprop
     xorg-xset xorg-xsetroot xorg-xwininfo xterm
@@ -53,6 +53,8 @@ PKGS=(
     # Media
     feh ffmpeg ffmpegthumbnailer imagemagick mediainfo
     mpc mpd mpv ncmpcpp nsxiv yt-dlp
+    # Lf preview
+    gnome-epub-thumbnailer lynx atool ueberzugpp
     # Programs
     alacritty audacity blender emacs firefox
     firefox-dark-reader firefox-extension-passff
@@ -68,7 +70,7 @@ PKGS=(
     python-dbus-next python-iwlib python-mpd2
     python-pip python-psutil python-setproctitle
     # Dev
-    bash-language-server lua-language-server rumdl tombi
+    bash-language-server lua-language-server rumdl tombi xmlstarlet
     python-debugpy python-lsp-server ruff shfmt shellcheck stylua
     tree-sitter-cli vscode-json-languageserver yaml-language-server
 )
