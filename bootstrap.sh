@@ -67,7 +67,7 @@ PKGS=(
     # Cli
     lf calcurse newsboat transmission-cli taskwarrior-tui trash-cli
     # i3wm
-    i3-wm i3blocks autotiling
+    i3-wm i3blocks autotiling snixembed
     # Qtile
     # python-dbus-next python-iwlib python-mpd2
     # python-pip python-psutil python-setproctitle
