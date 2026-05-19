@@ -74,10 +74,8 @@ mkdir -p \
     "$HUB_DIR/projects/audacity"/{output,raw,save} \
     "$HUB_DIR/projects/blender"/{output,raw,save} \
     "$HUB_DIR/projects/gimp"/{output,raw,save} \
-    "$HOME_DIR/.venv" \
     "$HOME_DIR/.config/mpd/playlists" \
-    "$HOME_DATA/fonts" \
-    "$HOME_DATA/pki"
+    "$HOME_DATA/fonts"
 msg "Done creating hub directory structure"
 
 # Hub2 directories
