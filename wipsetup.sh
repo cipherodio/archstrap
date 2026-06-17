@@ -36,10 +36,19 @@ clone_if_missing() {
     fi
 }
 
-# Env variables
+fix_suckless_remote() {
+    repo_dir=$1
+
+    [ -d "$repo_dir/.git" ] || return
+
+    repo_name=${repo_dir##*/}
+
+    git -C "$repo_dir" remote set-url origin \
+        "git@gitlab.com:cipherodio/$repo_name.git" 2>/dev/null || true
+}
+
+# Variables
 HOME_DIR="$HOME"
-HOME_DATA="$HOME_DIR/.local/share"
-DATA_DIR="/data"
 GPG_DIR="$HOME_DIR/.gnupg"
 
 REPO_BASE="git@gitlab.com:cipherodio/"
@@ -48,15 +57,12 @@ STARTPAGE_REPO="${REPO_BASE}startpage.git"
 NOTES_REPO="${REPO_BASE}mdnotes.git"
 PODCAST_REPO="${REPO_BASE}podcast.git"
 
-HUB_DIR="$HOME_DIR/hub"
-HUB2_DIR="$DATA_DIR/hub2"
-SRC_DIR="$HUB_DIR/src"
+SRC_DIR="$HOME_DIR/hub/src"
 DOTS_DIR="$HOME_DIR/.config/.dots"
 
 FIREFOX_SRC="$HOME_DIR/.config/firefox/user.js"
 FIREFOX_DIR="$HOME_DIR/.config/mozilla/firefox"
 PROFILES_INI="$FIREFOX_DIR/profiles.ini"
-
 CHROME_SRC="$HOME_DIR/.config/firefox/chrome"
 
 # Preconditions
@@ -65,43 +71,16 @@ command -v git >/dev/null || die "git not installed"
 command -v npm >/dev/null || die "npm not installed"
 msg "All required commands available"
 
-# User directories
-msg "Creating hub directory structure"
-mkdir -p \
-    "$HUB_DIR"/{downloads,review,screencapture,screenshot,src} \
-    "$HUB_DIR/data"/{documents,music,videos,wallpapers} \
-    "$HUB_DIR/projects"/{main,audacity,blender,shotcut,gimp} \
-    "$HUB_DIR/projects/audacity"/{output,raw,save} \
-    "$HUB_DIR/projects/blender"/{output,raw,save} \
-    "$HUB_DIR/projects/gimp"/{output,raw,save} \
-    "$HOME_DIR/.config/mpd/playlists" \
-    "$HOME_DATA/fonts"
-msg "Done creating hub directory structure"
-
-# Hub2 directories
-msg "Creating hub2 directory structure"
-mkdir -p \
-    "$HUB2_DIR/files"/{documents,music,videos,wallpapers} \
-    "$HUB2_DIR/projects"/{main,audacity,blender,shotcut,gimp} \
-    "$HUB2_DIR/projects/audacity"/{output,raw,save} \
-    "$HUB2_DIR/projects/blender"/{output,raw,save} \
-    "$HUB2_DIR/projects/gimp"/{output,raw,save} \
-    "$DATA_DIR/games"
-msg "Done creating hub2 directory structure"
-
 # GnuPG permissions
 msg "Setting GnuPG permissions"
 if [[ -d "$GPG_DIR" ]]; then
     find "$GPG_DIR" -type d -exec chmod 700 {} \;
     find "$GPG_DIR" -type f -exec chmod 600 {} \;
-
     gpgconf --kill gpg-agent >/dev/null 2>&1 || true
-
     msg "GnuPG permissions set"
 else
     msg "No GnuPG directory found, skipping"
 fi
-msg "GnuPG permissions is set"
 
 # GitLab SSH check
 msg "Checking GitLab SSH access"
@@ -178,6 +157,14 @@ msg "Fixing dotfiles git remote"
 git --git-dir="$DOTS_DIR" --work-tree="$HOME_DIR" \
     remote set-url origin git@gitlab.com:cipherodio/archdots.git
 msg "Done fixing git remotes"
+
+# Change suckless remote (HTTPS → SSH)
+msg "Fixing suckless git remotes"
+fix_suckless_remote "$SRC_DIR/dwm"
+fix_suckless_remote "$SRC_DIR/st"
+fix_suckless_remote "$SRC_DIR/dmenu"
+fix_suckless_remote "$SRC_DIR/slock"
+msg "Done fixing suckless git remotes"
 
 msg "setup.sh complete"
 msg "Restore gpg keys now"
