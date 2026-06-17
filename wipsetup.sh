@@ -15,9 +15,9 @@ set -Eeuo pipefail
 }
 
 # Helpers
-msg() { printf "\033[1;92m==>\033[0m %s\n" "$1"; }
+msg() { printf "==> %s\n" "$1"; }
 die() {
-    printf "\033[1;31merror:\033[0m %s\n" "$1" >&2
+    printf "error: %s\n" "$1" >&2
     exit 1
 }
 

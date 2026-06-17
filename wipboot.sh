@@ -14,8 +14,8 @@ die() {
 need() { command -v "$1" >/dev/null 2>&1 || die "missing dependency: $1"; }
 
 clone_if_missing() {
-    repo="$1"
-    dest="$2"
+    local repo="$1"
+    local dest="$2"
 
     msg "Processing $dest"
     if [[ -d "$dest/.git" ]]; then
