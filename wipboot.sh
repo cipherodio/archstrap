@@ -43,6 +43,7 @@ SRC_DIR="$HOME_DIR/hub/src"
 DWM_REPO="${REPO_BASE}dwm.git"
 ST_REPO="${REPO_BASE}st.git"
 DMENU_REPO="${REPO_BASE}dmenu.git"
+DWMBLOCKS_REPO="${REPO_BASE}dwmblocks.git"
 SLOCK_REPO="${REPO_BASE}slock.git"
 
 # Preconditions
@@ -171,6 +172,16 @@ clone_if_missing "$DMENU_REPO" "$SRC_DIR/dmenu"
     sudo make install
 )
 msg "Done installing Dmenu"
+
+msg "Building Dwmblocks"
+clone_if_missing "$DWMBLOCKS_REPO" "$SRC_DIR/dwmblocks"
+(
+    cd "$SRC_DIR/dwmblocks"
+    make clean >/dev/null 2>&1 || true
+    make
+    sudo make install
+)
+msg "Done installing Dwmblocks"
 
 msg "Building slock"
 clone_if_missing "$SLOCK_REPO" "$SRC_DIR/slock"

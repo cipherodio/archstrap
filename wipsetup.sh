@@ -163,6 +163,7 @@ msg "Fixing suckless git remotes"
 fix_suckless_remote "$SRC_DIR/dwm"
 fix_suckless_remote "$SRC_DIR/st"
 fix_suckless_remote "$SRC_DIR/dmenu"
+fix_suckless_remote "$SRC_DIR/dwmblocks"
 fix_suckless_remote "$SRC_DIR/slock"
 msg "Done fixing suckless git remotes"
 
