@@ -28,7 +28,7 @@ clone_if_missing() {
 }
 
 # Variables
-REPO_BASE="https://gitlab.com/cipherodio"
+REPO_BASE="https://gitlab.com/cipherodio/"
 DOTS_REPO="$REPO_BASE/archdots.git"
 HOME_DIR="$HOME"
 DOTS_DIR="$HOME_DIR/.config/.dots"
