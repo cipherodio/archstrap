@@ -73,7 +73,7 @@ PKGS=(
     btop brightnessctl dosfstools evtest exfatprogs
     htop nvtop ntfs-3g pacutils upower reflector
     # Utilities
-    bc fd fzf rofi highlight man-db maim moreutils rsync task jq
+    bc fd fzf highlight man-db maim moreutils rsync task jq
     pass psutils openssh ripgrep tmux tree unrar unzip wget zip
     # Media
     feh ffmpeg ffmpegthumbnailer imagemagick mediainfo
@@ -81,7 +81,7 @@ PKGS=(
     # Lf preview
     gnome-epub-thumbnailer lynx atool ueberzugpp
     # Programs
-    audacity blender emacs firefox firefox-dark-reader
+    audacity blender firefox firefox-dark-reader
     firefox-extension-passff firefox-tridactyl
     firefox-ublock-origin gimp inkscape poppler spotify-launcher
     tesseract tesseract-data-eng tesseract-data-osd
