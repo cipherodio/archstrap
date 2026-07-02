@@ -73,8 +73,8 @@ PKGS=(
     btop brightnessctl dosfstools evtest exfatprogs
     htop nvtop ntfs-3g pacutils upower reflector
     # Utilities
-    bc fd fzf highlight man-db maim moreutils rsync task jq
-    pass psutils openssh ripgrep tmux tree unrar unzip wget zip
+    bc fd fzf highlight man-db maim moreutils rsync pass jq
+    psutils openssh ripgrep tmux tree unrar unzip wget zip
     # Media
     feh ffmpeg ffmpegthumbnailer imagemagick mediainfo
     mpc mpd mpv ncmpcpp nsxiv yt-dlp
@@ -88,8 +88,9 @@ PKGS=(
     signal-desktop zathura zathura-pdf-mupdf
     # Needed for shotcut to work, uncomment below if using shotcut
     # shotcut qt6-svg qt6-5compat hip-runtime-amd
-    # Cli
-    lf calcurse newsboat transmission-cli taskwarrior-tui trash-cli
+    # Cli and Tui
+    lf calcurse newsboat transmission-cli trash-cli
+    task taskwarrior-tui timew
     # i3wm
     # i3-wm i3blocks autotiling snixembed alacritty
     # Qtile
