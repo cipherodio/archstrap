@@ -73,8 +73,8 @@ PKGS=(
     btop brightnessctl dosfstools evtest exfatprogs
     htop nvtop ntfs-3g pacutils upower reflector
     # Utilities
-    bc fd fzf highlight man-db maim moreutils rsync pass jq
-    psutils openssh ripgrep tmux tree unrar unzip wget zip
+    bc fd fzf highlight man-db maim moreutils testdisk rsync jq
+    pass psutils openssh ripgrep tmux tree unrar unzip wget zip
     # Media
     feh ffmpeg ffmpegthumbnailer imagemagick mediainfo
     mpc mpd mpv ncmpcpp nsxiv yt-dlp
@@ -86,16 +86,9 @@ PKGS=(
     firefox-ublock-origin gimp inkscape poppler spotify-launcher
     tesseract tesseract-data-eng tesseract-data-osd
     signal-desktop zathura zathura-pdf-mupdf
-    # Needed for shotcut to work, uncomment below if using shotcut
-    # shotcut qt6-svg qt6-5compat hip-runtime-amd
     # Cli and Tui
     lf calcurse newsboat transmission-cli trash-cli
     task taskwarrior-tui timew
-    # i3wm
-    # i3-wm i3blocks autotiling snixembed alacritty
-    # Qtile
-    # qtile python-dbus-next python-iwlib python-mpd2 alacritty
-    # python-pip python-psutil python-setproctitle
     # Dev
     bash-language-server lua-language-server rumdl tombi xmlstarlet
     python-debugpy python-lsp-server ruff shfmt shellcheck stylua
