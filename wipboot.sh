@@ -67,6 +67,7 @@ PKGS=(
     libertinus-font noto-fonts noto-fonts-emoji
     ttc-iosevka ttc-iosevka-aile ttf-iosevka-nerd
     ttf-dejavu ttf-liberation ttf-jetbrains-mono-nerd
+    otf-geist-mono-nerd
     # System
     acpi dunst libnotify npm picom unclutter nim
     # System tools
@@ -75,13 +76,14 @@ PKGS=(
     # Utilities
     bc fd fzf highlight man-db maim moreutils testdisk rsync jq
     pass psutils openssh ripgrep tmux tree unrar unzip wget zip
+    hunspell hunspell-en_us
     # Media
     feh ffmpeg ffmpegthumbnailer imagemagick mediainfo
     mpc mpd mpv ncmpcpp nsxiv yt-dlp
     # Lf preview
     gnome-epub-thumbnailer lynx atool ueberzugpp
     # Programs
-    audacity blender firefox firefox-dark-reader
+    audacity blender emacs firefox firefox-dark-reader
     firefox-extension-passff firefox-tridactyl
     firefox-ublock-origin gimp inkscape poppler spotify-launcher
     tesseract tesseract-data-eng tesseract-data-osd
@@ -93,6 +95,7 @@ PKGS=(
     bash-language-server lua-language-server rumdl tombi xmlstarlet
     python-debugpy python-lsp-server ruff shfmt shellcheck stylua
     tree-sitter-cli vscode-json-languageserver yaml-language-server
+    vscode-css-languageserver
 )
 msg "Installing ${#PKGS[@]} system packages"
 sudo pacman -Syu --needed --noconfirm "${PKGS[@]}"
