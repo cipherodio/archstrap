@@ -64,10 +64,9 @@ PKGS=(
     # Audio
     pipewire pipewire-alsa pipewire-pulse pulsemixer alsa-utils
     # Fonts
-    libertinus-font noto-fonts noto-fonts-emoji
+    libertinus-font noto-fonts noto-fonts-emoji ttf-dejavu
     ttc-iosevka ttc-iosevka-aile ttf-iosevka-nerd
-    ttf-dejavu ttf-liberation ttf-jetbrains-mono-nerd
-    otf-geist-mono-nerd
+    ttf-liberation ttf-jetbrains-mono-nerd otf-geist-mono-nerd
     # System
     acpi dunst libnotify npm picom unclutter nim
     # System tools
@@ -87,7 +86,7 @@ PKGS=(
     firefox-extension-passff firefox-tridactyl
     firefox-ublock-origin gimp inkscape poppler spotify-launcher
     tesseract tesseract-data-eng tesseract-data-osd
-    signal-desktop zathura zathura-pdf-mupdf
+    signal-desktop zathura zathura-pdf-mupdf steam
     # Cli and Tui
     lf calcurse newsboat transmission-cli trash-cli
     task taskwarrior-tui timew
