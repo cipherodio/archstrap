@@ -1,0 +1,130 @@
+#CATEGORY,PACKAGE,DESCRIPTION
+X11 Utilities,xcape,Modifier key remapping utility for X11.
+Clipboard,xclip,Command-line access to the X11 clipboard.
+Desktop Integration,xdg-utils,Desktop integration tools such as xdg-open.
+X11 Utilities,xdo,Simple X11 window automation tool.
+X11 Utilities,xdotool,Keyboard and mouse automation for X11.
+X11 Utilities,xorg-xdpyinfo,X11 display information utility.
+X11 Utilities,xorg-xev,X11 input event viewer.
+X11 Utilities,xorg-xinit,X11 session launcher using startx.
+X11 Utilities,xorg-xinput,X11 input device configuration utility.
+X11 Utilities,xorg-xprop,X11 window property inspection utility.
+X11 Utilities,xorg-xset,X11 display and input configuration utility.
+X11 Utilities,xorg-xsetroot,X11 root window configuration utility.
+X11 Utilities,xorg-xwininfo,X11 window information utility.
+Terminal Emulator,xterm,Standard terminal emulator for X11.
+Vulkan,lib32-vulkan-radeon,32-bit Vulkan driver for AMD Radeon graphics.
+Graphics Diagnostics,mesa-utils,OpenGL and Mesa diagnostic utilities.
+Vulkan,vulkan-tools,Vulkan diagnostic and testing utilities.
+Audio Server,pipewire,Audio and video processing server.
+Audio Server,pipewire-alsa,ALSA compatibility layer for PipeWire.
+Audio Server,pipewire-pulse,PulseAudio compatibility layer for PipeWire.
+Audio Control,pulsemixer,Terminal mixer for PulseAudio-compatible servers.
+Audio Control,alsa-utils,Command-line tools for ALSA audio devices.
+Fonts,libertinus-font,Libertinus serif and sans-serif font family.
+Fonts,noto-fonts,Fonts with broad Unicode language coverage.
+Fonts,noto-fonts-emoji,Color emoji font from Google Noto.
+Fonts,ttf-dejavu,DejaVu TrueType font family.
+Fonts,ttc-iosevka,Iosevka monospace font family.
+Fonts,ttc-iosevka-aile,Iosevka Aile proportional font family.
+Fonts,ttf-iosevka-nerd,Iosevka font with Nerd Font symbols.
+Fonts,ttf-liberation,Metric-compatible alternatives to common Microsoft fonts.
+Fonts,ttf-jetbrains-mono-nerd,JetBrains Mono with Nerd Font symbols.
+Fonts,otf-geist-mono-nerd,Geist Mono with Nerd Font symbols.
+Power Management,acpi,Battery and thermal information utility.
+Notifications,dunst,Lightweight desktop notification daemon.
+Notifications,libnotify,Desktop notification library and command-line client.
+JavaScript Tooling,npm,Package manager for Node.js.
+Compositor,picom,Compositor for transparency and visual effects in X11.
+Input Utilities,unclutter,Automatic mouse cursor hiding utility.
+Programming Language,nim,Nim compiler and development tools.
+System Monitoring,btop,Interactive system resource monitor.
+Display Control,brightnessctl,Display and device brightness controller.
+Filesystem Tools,dosfstools,FAT filesystem creation and checking tools.
+Input Utilities,evtest,Linux input device event viewer.
+Filesystem Tools,exfatprogs,exFAT filesystem creation and checking tools.
+System Monitoring,htop,Interactive process and resource monitor.
+System Monitoring,nvtop,Interactive GPU process monitor.
+Filesystem Tools,ntfs-3g,Read and write support for NTFS filesystems.
+Package Management,pacutils,Additional package management tools for Pacman.
+Power Management,upower,Power device information and monitoring service.
+Mirror Management,reflector,Arch Linux mirror list generator.
+Calculator,bc,Arbitrary-precision command-line calculator.
+File Search,fd,Fast and user-friendly file search tool.
+Fuzzy Finder,fzf,Interactive command-line fuzzy finder.
+Syntax Highlighting,highlight,Source code syntax highlighting utility.
+Documentation,man-db,Manual page database and reader.
+Screenshot,maim,Screenshot utility for X11.
+Unix Utilities,moreutils,Additional general-purpose Unix command-line tools.
+Data Recovery,testdisk,Partition and file recovery utility.
+File Synchronization,rsync,Local and remote file synchronization tool.
+JSON Tools,jq,Command-line JSON processor.
+Password Management,pass,GnuPG-based command-line password manager.
+PostScript Tools,psutils,Tools for manipulating PostScript documents.
+Remote Access,openssh,SSH client and server tools.
+File Search,ripgrep,Fast recursive text search tool.
+Terminal Multiplexer,tmux,Terminal session multiplexer.
+File Listing,tree,Tree-style directory listing utility.
+Archive Tools,unrar,RAR archive extraction utility.
+Archive Tools,unzip,ZIP archive extraction utility.
+Download Tools,wget,Command-line network file downloader.
+Archive Tools,zip,ZIP archive creation utility.
+Spell Checking,hunspell,Spell-checking engine.
+Spell Checking,hunspell-en_us,American English dictionary for Hunspell.
+Image Viewer,feh,Lightweight image viewer and wallpaper setter.
+Multimedia Tools,ffmpeg,Audio and video conversion and processing tools.
+Thumbnailer,ffmpegthumbnailer,Video thumbnail generation utility.
+Image Processing,imagemagick,Command-line image creation and editing tools.
+Media Information,mediainfo,Technical metadata viewer for media files.
+Music Player,mpc,Command-line client for MPD.
+Music Player,mpd,Background music player daemon.
+Media Player,mpv,Command-line audio and video player.
+Music Player,ncmpcpp,Terminal client for MPD.
+Image Viewer,nsxiv,Lightweight keyboard-driven image viewer.
+Media Downloader,yt-dlp,Video and audio downloader for supported websites.
+Thumbnailer,gnome-epub-thumbnailer,Thumbnail generator for EPUB documents.
+Web Browser,lynx,Text-based terminal web browser.
+Archive Tools,atool,Unified command-line interface for archive formats.
+Terminal Graphics,ueberzugpp,Image display support for terminal applications.
+Audio Editor,audacity,Graphical audio editor and recorder.
+3D Graphics,blender,3D modeling animation and rendering suite.
+Text Editor,emacs,Extensible GNU text editor.
+Web Browser,firefox,Firefox web browser.
+Browser Extension,firefox-dark-reader,Dark theme support for websites in Firefox.
+Browser Extension,firefox-extension-passff,Pass password manager integration for Firefox.
+Browser Extension,firefox-tridactyl,Vim-style keyboard navigation for Firefox.
+Browser Extension,firefox-ublock-origin,Content and advertisement blocker for Firefox.
+Image Editor,gimp,Graphical raster image editor.
+Vector Graphics,inkscape,Graphical vector image editor.
+PDF Tools,poppler,PDF rendering library and command-line utilities.
+Music Streaming,spotify-launcher,Installer and launcher for the Spotify client.
+OCR,tesseract,Optical character recognition engine.
+OCR,tesseract-data-eng,English language data for Tesseract.
+OCR,tesseract-data-osd,Orientation and script detection data for Tesseract.
+Messaging,signal-desktop,Desktop client for Signal messaging.
+Document Viewer,zathura,Keyboard-driven document viewer.
+Document Viewer,zathura-pdf-mupdf,MuPDF-based PDF support for Zathura.
+Gaming,steam,Steam game distribution client.
+File Manager,lf,Terminal file manager.
+Calendar,calcurse,Terminal calendar and appointment manager.
+RSS Reader,newsboat,Terminal RSS and Atom feed reader.
+BitTorrent,transmission-cli,Command-line tools for the Transmission BitTorrent client.
+Trash Management,trash-cli,Command-line interface for desktop trash.
+Task Management,task,Taskwarrior command-line task manager.
+Task Management,taskwarrior-tui,Terminal interface for Taskwarrior.
+Time Tracking,timew,Timewarrior command-line time tracker.
+Language Server,bash-language-server,Language server for Bash scripts.
+Language Server,lua-language-server,Language server for Lua.
+Markdown Tools,rumdl,Markdown linter and formatter.
+TOML Tools,tombi,TOML formatter and validator.
+XML Tools,xmlstarlet,Command-line XML query and editing tools.
+Debugger,python-debugpy,Debug adapter for Python.
+Language Server,python-lsp-server,Language server for Python.
+Python Tools,ruff,Python linter and formatter.
+Shell Tools,shfmt,Shell script formatter.
+Shell Tools,shellcheck,Static analysis tool for shell scripts.
+Lua Tools,stylua,Lua source code formatter.
+Parser Tools,tree-sitter-cli,Command-line tools for Tree-sitter parsers.
+Language Server,vscode-json-languageserver,Language server for JSON.
+Language Server,yaml-language-server,Language server for YAML.
+Language Server,vscode-css-languageserver,Language server for CSS.
