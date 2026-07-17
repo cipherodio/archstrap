@@ -7,7 +7,7 @@
 > recommend checking the [Official Arch Installation Guide][archguide]
 > and [Arch Wiki][archwiki].
 
-## OVERVIEW
+**OVERVIEW**
 
 This repository contains my personal **[Arch Linux][archlinux]**
 installation guide and setup workflow.
@@ -23,15 +23,15 @@ platform.
 This guide walks through my full Arch setup, from a fresh installation
 to a fully working system.
 
-## TARGET SYSTEM
+**TARGET SYSTEM&**
 
 - UEFI
 - GPT partition table
 - AMD GPU
 - EFISTUB or systemd-boot
 
+**TABLE OF CONTENTS**
 <!-- toc -->
-
 - [1. PRE-INSTALLATION](#1-pre-installation)
     - [1.1 CHANGE CONSOLE FONT](#11-change-console-font)
     - [1.2 WIPE DISK](#12-wipe-disk)
@@ -51,7 +51,6 @@ to a fully working system.
     - [3.2 BOOTSTRAP](#32-bootstrap)
     - [3.3 SSH](#33-ssh)
     - [3.4 SETUP](#34-setup)
-
 <!-- tocstop -->
 
 ## 1. PRE-INSTALLATION
