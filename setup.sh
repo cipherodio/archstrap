@@ -5,7 +5,7 @@
 # User environment setup (post-login)
 # Assumes:
 #   - dotfiles are installed and sourced
-#   - PATH, npm prefix, SSH config are active
+#   - PATH, SSH config are active
 
 set -Eeuo pipefail
 
@@ -13,6 +13,24 @@ set -Eeuo pipefail
     echo "error: do not run setup.sh as root" >&2
     exit 1
 }
+
+# Variables
+HOME_DIR="$HOME"
+GPG_DIR="$HOME_DIR/.gnupg"
+
+REPO_BASE="git@gitlab.com:cipherodio/"
+ARCHSTRAP_REPO="${REPO_BASE}archstrap.git"
+STARTPAGE_REPO="${REPO_BASE}startpage.git"
+NOTES_REPO="${REPO_BASE}mdnotes.git"
+PODCAST_REPO="${REPO_BASE}podcast.git"
+
+SRC_DIR="$HOME_DIR/hub/src"
+DOTS_DIR="$HOME_DIR/.config/.dots"
+
+FIREFOX_SRC="$HOME_DIR/.config/firefox/user.js"
+FIREFOX_DIR="$HOME_DIR/.config/mozilla/firefox"
+PROFILES_INI="$FIREFOX_DIR/profiles.ini"
+CHROME_SRC="$HOME_DIR/.config/firefox/chrome"
 
 # Helpers
 msg() { printf "==> %s\n" "$1"; }
@@ -47,28 +65,9 @@ fix_suckless_remote() {
         "git@gitlab.com:cipherodio/$repo_name.git" 2>/dev/null || true
 }
 
-# Variables
-HOME_DIR="$HOME"
-GPG_DIR="$HOME_DIR/.gnupg"
-
-REPO_BASE="git@gitlab.com:cipherodio/"
-ARCHSTRAP_REPO="${REPO_BASE}archstrap.git"
-STARTPAGE_REPO="${REPO_BASE}startpage.git"
-NOTES_REPO="${REPO_BASE}mdnotes.git"
-PODCAST_REPO="${REPO_BASE}podcast.git"
-
-SRC_DIR="$HOME_DIR/hub/src"
-DOTS_DIR="$HOME_DIR/.config/.dots"
-
-FIREFOX_SRC="$HOME_DIR/.config/firefox/user.js"
-FIREFOX_DIR="$HOME_DIR/.config/mozilla/firefox"
-PROFILES_INI="$FIREFOX_DIR/profiles.ini"
-CHROME_SRC="$HOME_DIR/.config/firefox/chrome"
-
 # Preconditions
 msg "Checking required commands"
 command -v git >/dev/null || die "git not installed"
-command -v npm >/dev/null || die "npm not installed"
 msg "All required commands available"
 
 # GnuPG permissions

@@ -4,6 +4,26 @@
 
 set -Eeuo pipefail
 
+# Variables
+REPO_BASE="https://gitlab.com/cipherodio/"
+PACKAGE_URL="${REPO_BASE}archstrap/-/raw/main/package.csv"
+DOTS_REPO="${REPO_BASE}archdots.git"
+HOME_DIR="$HOME"
+DOTS_DIR="$HOME_DIR/.config/.dots"
+
+HOME_DATA="$HOME_DIR/.local/share"
+DATA_DIR="/data"
+
+HUB_DIR="$HOME_DIR/hub"
+HUB2_DIR="$DATA_DIR/hub2"
+
+SRC_DIR="$HOME_DIR/hub/src"
+DWM_REPO="${REPO_BASE}dwm.git"
+ST_REPO="${REPO_BASE}st.git"
+DMENU_REPO="${REPO_BASE}dmenu.git"
+DWMBLOCKS_REPO="${REPO_BASE}dwmblocks.git"
+SLOCK_REPO="${REPO_BASE}slock.git"
+
 # Helpers
 msg() { printf "==> %s\n" "$1"; }
 die() {
@@ -27,78 +47,50 @@ clone_if_missing() {
     fi
 }
 
-# Variables
-REPO_BASE="https://gitlab.com/cipherodio/"
-DOTS_REPO="$REPO_BASE/archdots.git"
-HOME_DIR="$HOME"
-DOTS_DIR="$HOME_DIR/.config/.dots"
+install_packages() {
+    local package_file
+    local category='' package='' description=''
+    local -a packages=()
 
-HOME_DATA="$HOME_DIR/.local/share"
-DATA_DIR="/data"
+    package_file=$(mktemp)
 
-HUB_DIR="$HOME_DIR/hub"
-HUB2_DIR="$DATA_DIR/hub2"
+    msg "Fetching package list"
+    if ! curl -fsSL "$PACKAGE_URL" -o "$package_file"; then
+        rm -f "$package_file"
+        die "failed to fetch package.csv"
+    fi
 
-SRC_DIR="$HOME_DIR/hub/src"
-DWM_REPO="${REPO_BASE}dwm.git"
-ST_REPO="${REPO_BASE}st.git"
-DMENU_REPO="${REPO_BASE}dmenu.git"
-DWMBLOCKS_REPO="${REPO_BASE}dwmblocks.git"
-SLOCK_REPO="${REPO_BASE}slock.git"
+    while IFS=, read -r category package description ||
+        [[ -n "$category$package$description" ]]; do
+        category=${category%$'\r'}
+        package=${package%$'\r'}
+
+        [[ "$category" == \#* ]] && continue
+        [[ -n "$package" ]] || continue
+
+        packages+=("$package")
+    done <"$package_file"
+
+    rm -f "$package_file"
+
+    ((${#packages[@]} > 0)) ||
+        die "no packages found in package.csv"
+
+    msg "Installing ${#packages[@]} system packages"
+    sudo pacman -Syu --needed --noconfirm "${packages[@]}"
+    msg "Done installing ${#packages[@]} system packages"
+}
 
 # Preconditions
 need sudo
 need git
+need curl
 sudo -v
 
+# System packages
 msg "Starting Arch one-shot bootstrap"
 msg "Done checking prerequisites"
-# System packages
-PKGS=(
-    # X11
-    xcape xclip xdg-utils xdo xdotool
-    xorg-xdpyinfo xorg-xev xorg-xinit xorg-xinput xorg-xprop
-    xorg-xset xorg-xsetroot xorg-xwininfo xterm
-    # Drivers
-    lib32-vulkan-radeon mesa-utils vulkan-tools
-    # Audio
-    pipewire pipewire-alsa pipewire-pulse pulsemixer alsa-utils
-    # Fonts
-    libertinus-font noto-fonts noto-fonts-emoji ttf-dejavu
-    ttc-iosevka ttc-iosevka-aile ttf-iosevka-nerd
-    ttf-liberation ttf-jetbrains-mono-nerd otf-geist-mono-nerd
-    # System
-    acpi dunst libnotify npm picom unclutter nim
-    # System tools
-    btop brightnessctl dosfstools evtest exfatprogs
-    htop nvtop ntfs-3g pacutils upower reflector
-    # Utilities
-    bc fd fzf highlight man-db maim moreutils testdisk rsync jq
-    pass psutils openssh ripgrep tmux tree unrar unzip wget zip
-    hunspell hunspell-en_us
-    # Media
-    feh ffmpeg ffmpegthumbnailer imagemagick mediainfo
-    mpc mpd mpv ncmpcpp nsxiv yt-dlp
-    # Lf preview
-    gnome-epub-thumbnailer lynx atool ueberzugpp
-    # Programs
-    audacity blender emacs firefox firefox-dark-reader
-    firefox-extension-passff firefox-tridactyl
-    firefox-ublock-origin gimp inkscape poppler spotify-launcher
-    tesseract tesseract-data-eng tesseract-data-osd
-    signal-desktop zathura zathura-pdf-mupdf steam
-    # Cli and Tui
-    lf calcurse newsboat transmission-cli trash-cli
-    task taskwarrior-tui timew
-    # Dev
-    bash-language-server lua-language-server rumdl tombi xmlstarlet
-    python-debugpy python-lsp-server ruff shfmt shellcheck stylua
-    tree-sitter-cli vscode-json-languageserver yaml-language-server
-    vscode-css-languageserver
-)
-msg "Installing ${#PKGS[@]} system packages"
-sudo pacman -Syu --needed --noconfirm "${PKGS[@]}"
-msg "Done installing ${#PKGS[@]} system packages"
+install_packages
 
 # Dotfiles (bare repo)
 msg "Installing dotfiles"
