@@ -23,7 +23,7 @@ platform.
 This guide walks through my full Arch setup, from a fresh installation
 to a fully working system.
 
-**TARGET SYSTEM&**
+**TARGET SYSTEM**
 
 - UEFI
 - GPT partition table
@@ -65,7 +65,8 @@ setfont ter-124b
 
 > [!IMPORTANT]
 >
-> Verify disk names with `lsblk` before running `preinstall.sh`.
+> Verify disk names with `lsblk` before running `[Install
+script][install.sh]`.
 >
 > Prerequisite disk names should match:
 >
@@ -245,5 +246,5 @@ curl -fsSL https://gitlab.com/cipherodio/archstrap/-/raw/main/setup.sh | bash
 [archlinux]: https://archlinux.org/
 [dots]: https://gitlab.com/cipherodio/archdots
 [qtile]: https://qtile.org/
-[filesystem]: https://wiki.archlinux.org/title/File_systems
 [gitlab]: https://gitlab.com/
+[Install script]: ./install.sh
