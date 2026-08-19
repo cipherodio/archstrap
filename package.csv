@@ -25,9 +25,6 @@ Fonts,libertinus-font,Libertinus serif and sans-serif font family.
 Fonts,noto-fonts,Fonts with broad Unicode language coverage.
 Fonts,noto-fonts-emoji,Color emoji font from Google Noto.
 Fonts,ttf-dejavu,DejaVu TrueType font family.
-Fonts,ttc-iosevka,Iosevka monospace font family.
-Fonts,ttc-iosevka-aile,Iosevka Aile proportional font family.
-Fonts,ttf-iosevka-nerd,Iosevka font with Nerd Font symbols.
 Fonts,ttf-liberation,Metric-compatible alternatives to common Microsoft fonts.
 Fonts,ttf-jetbrains-mono-nerd,JetBrains Mono with Nerd Font symbols.
 Fonts,otf-geist-mono-nerd,Geist Mono with Nerd Font symbols.
@@ -113,6 +110,10 @@ Trash Management,trash-cli,Command-line interface for desktop trash.
 Task Management,task,Taskwarrior command-line task manager.
 Task Management,taskwarrior-tui,Terminal interface for Taskwarrior.
 Time Tracking,timew,Timewarrior command-line time tracker.
+Gaming,wine,Compatibility layer for running Windows programs.
+Gaming,wine-gecko,Needed for games setup for Wine.
+Gaming,wine-mono,Needed for games setup for Wine.
+Gaming,winetricks,Needed for games setup for Wine.
 Language Server,bash-language-server,Language server for Bash scripts.
 Language Server,lua-language-server,Language server for Lua.
 Markdown Tools,rumdl,Markdown linter and formatter.
