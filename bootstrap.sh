@@ -115,7 +115,8 @@ mkdir -p \
     "$HUB_DIR/projects/blender"/{output,raw,save} \
     "$HUB_DIR/projects/gimp"/{output,raw,save} \
     "$HOME_DIR/.config/mpd/playlists" \
-    "$HOME_DATA/fonts"
+    "$HOME_DATA/fonts" \
+    "$HOME_DATA/wineprefixes"
 msg "Done creating hub directory structure"
 
 msg "Creating hub2 directory structure"
@@ -125,7 +126,8 @@ mkdir -p \
     "$HUB2_DIR/projects/audacity"/{output,raw,save} \
     "$HUB2_DIR/projects/blender"/{output,raw,save} \
     "$HUB2_DIR/projects/gimp"/{output,raw,save} \
-    "$DATA_DIR/games"
+    "$DATA_DIR/games" \
+    "$DATA_DIR/steam"
 msg "Done creating hub2 directory structure"
 
 # Suckless

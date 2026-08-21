@@ -62,7 +62,7 @@ msg "Mirrors is set"
 msg "Installing base system"
 pacstrap -K /mnt \
     base base-devel linux linux-firmware \
-    xorg-server mesa xf86-video-amdgpu vulkan-radeon amd-ucode \
+    xorg-server mesa vulkan-radeon amd-ucode \
     git neovim networkmanager iwd \
     bluez bluez-utils terminus-font \
     cpupower zsh efibootmgr
