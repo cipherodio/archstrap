@@ -113,7 +113,6 @@ Time Tracking,timew,Timewarrior command-line time tracker.
 Gaming,wine,Compatibility layer for running Windows programs.
 Gaming,wine-gecko,Needed for games setup for Wine.
 Gaming,wine-mono,Needed for games setup for Wine.
-Gaming,winetricks,Needed for games setup for Wine.
 Language Server,bash-language-server,Language server for Bash scripts.
 Language Server,lua-language-server,Language server for Lua.
 Markdown Tools,rumdl,Markdown linter and formatter.
