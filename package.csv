@@ -66,6 +66,7 @@ Archive Tools,unrar,RAR archive extraction utility.
 Archive Tools,unzip,ZIP archive extraction utility.
 Download Tools,wget,Command-line network file downloader.
 Archive Tools,zip,ZIP archive creation utility.
+Archive Tools,7zip,ZIP archive creation utility.
 Spell Checking,hunspell,Spell-checking engine.
 Spell Checking,hunspell-en_us,American English dictionary for Hunspell.
 Image Viewer,feh,Lightweight image viewer and wallpaper setter.
