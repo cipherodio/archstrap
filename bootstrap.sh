@@ -9,7 +9,6 @@ REPO_BASE="https://gitlab.com/cipherodio/"
 PACKAGE_URL="${REPO_BASE}archstrap/-/raw/main/package.csv"
 DOTS_REPO="${REPO_BASE}archdots.git"
 HOME_DIR="$HOME"
-DOTS_DIR="$HOME_DIR/.config/.dots"
 
 HOME_DATA="$HOME_DIR/.local/share"
 DATA_DIR="/data"
@@ -18,6 +17,8 @@ HUB_DIR="$HOME_DIR/hub"
 HUB2_DIR="$DATA_DIR/hub2"
 
 SRC_DIR="$HOME_DIR/hub/src"
+DOTS_DIR="$SRC_DIR/archdots"
+
 DWM_REPO="${REPO_BASE}dwm.git"
 ST_REPO="${REPO_BASE}st.git"
 DMENU_REPO="${REPO_BASE}dmenu.git"
@@ -92,19 +93,6 @@ msg "Starting Arch one-shot bootstrap"
 msg "Done checking prerequisites"
 install_packages
 
-# Dotfiles (bare repo)
-msg "Installing dotfiles"
-if [[ ! -d "$DOTS_DIR" ]]; then
-    git clone --bare "$DOTS_REPO" "$DOTS_DIR"
-fi
-git --git-dir="$DOTS_DIR" config \
-    remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
-git --git-dir="$DOTS_DIR" fetch origin
-git --git-dir="$DOTS_DIR" --work-tree="$HOME_DIR" checkout -f
-git --git-dir="$DOTS_DIR" \
-    branch --set-upstream-to=origin/main main 2>/dev/null || true
-msg "Done installing dotfiles"
-
 # User directories
 msg "Creating hub directory structure"
 mkdir -p \
@@ -129,6 +117,28 @@ mkdir -p \
     "$DATA_DIR/games" \
     "$DATA_DIR/steam"
 msg "Done creating hub2 directory structure"
+
+# Dotfiles
+msg "Installing dotfiles"
+clone_if_missing "$DOTS_REPO" "$DOTS_DIR"
+mapfile -t STOW_PACKAGES < <(
+    find "$DOTS_DIR" \
+        -mindepth 1 \
+        -maxdepth 1 \
+        -type d \
+        ! -name ".git" \
+        ! -name "cipher" \
+        -printf "%f\n" |
+        sort
+)
+((${#STOW_PACKAGES[@]} > 0)) || die "no Stow packages found in $DOTS_DIR"
+msg "Stowing ${#STOW_PACKAGES[@]} dotfile packages"
+stow \
+    --dir="$DOTS_DIR" \
+    --target="$HOME_DIR" \
+    --no-folding \
+    "${STOW_PACKAGES[@]}"
+msg "Done installing dotfiles"
 
 # Suckless
 msg "Building suckless WM stack"
