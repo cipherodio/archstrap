@@ -25,8 +25,9 @@ NOTES_REPO="${REPO_BASE}mdnotes.git"
 PODCAST_REPO="${REPO_BASE}podcast.git"
 
 SRC_DIR="$HOME_DIR/hub/src"
+DOTS_DIR="$HOME_DIR/.config/.dots"
 
-FIREFOX_SRC="$SRC_DIR/dotfiles/assets/firefox/user.js"
+FIREFOX_SRC="$HOME_DIR/hub/src/dotfiles/assets/firefox/user.js"
 FIREFOX_DIR="$HOME_DIR/.config/mozilla/firefox"
 PROFILES_INI="$FIREFOX_DIR/profiles.ini"
 CHROME_SRC="$HOME_DIR/hub/src/dotfiles/assets/firefox/chrome"
@@ -53,11 +54,12 @@ clone_if_missing() {
     fi
 }
 
-change_to_ssh_remote() {
-    local repo_dir="$1"
-    local repo_name="${repo_dir##*/}"
+fix_suckless_remote() {
+    repo_dir=$1
 
-    [[ -d "$repo_dir/.git" ]] || return
+    [ -d "$repo_dir/.git" ] || return
+
+    repo_name=${repo_dir##*/}
 
     git -C "$repo_dir" remote set-url origin \
         "git@gitlab.com:cipherodio/$repo_name.git" 2>/dev/null || true
@@ -149,15 +151,20 @@ else
     msg "Installed Firefox chrome CSS"
 fi
 
-# Change git remotes from HTTPS to SSH
-msg "Changing to SSH git remotes"
-change_to_ssh_remote "$SRC_DIR/dotfiles"
-change_to_ssh_remote "$SRC_DIR/dwm"
-change_to_ssh_remote "$SRC_DIR/st"
-change_to_ssh_remote "$SRC_DIR/dmenu"
-change_to_ssh_remote "$SRC_DIR/dwmblocks"
-change_to_ssh_remote "$SRC_DIR/slock"
-msg "Done changing git remotes"
+# Change dotfiles remote (HTTPS → SSH)
+msg "Fixing dotfiles git remote"
+git --git-dir="$DOTS_DIR" --work-tree="$HOME_DIR" \
+    remote set-url origin git@gitlab.com:cipherodio/archdots.git
+msg "Done fixing git remotes"
+
+# Change suckless remote (HTTPS → SSH)
+msg "Fixing suckless git remotes"
+fix_suckless_remote "$SRC_DIR/dwm"
+fix_suckless_remote "$SRC_DIR/st"
+fix_suckless_remote "$SRC_DIR/dmenu"
+fix_suckless_remote "$SRC_DIR/dwmblocks"
+fix_suckless_remote "$SRC_DIR/slock"
+msg "Done fixing suckless git remotes"
 
 msg "setup.sh complete"
 msg "Restore gpg keys now"

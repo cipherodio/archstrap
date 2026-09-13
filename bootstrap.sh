@@ -7,9 +7,9 @@ set -Eeuo pipefail
 # Variables
 REPO_BASE="https://gitlab.com/cipherodio/"
 PACKAGE_URL="${REPO_BASE}archstrap/-/raw/main/package.csv"
-DOTS_REPO="${REPO_BASE}archdots.git"
-HOME_DIR="$HOME"
+DOTS_REPO="${REPO_BASE}dotfiles.git"
 
+HOME_DIR="$HOME"
 HOME_DATA="$HOME_DIR/.local/share"
 DATA_DIR="/data"
 
@@ -17,13 +17,35 @@ HUB_DIR="$HOME_DIR/hub"
 HUB2_DIR="$DATA_DIR/hub2"
 
 SRC_DIR="$HOME_DIR/hub/src"
-DOTS_DIR="$SRC_DIR/archdots"
+DOTS_DIR="$SRC_DIR/dotfiles"
 
 DWM_REPO="${REPO_BASE}dwm.git"
 ST_REPO="${REPO_BASE}st.git"
 DMENU_REPO="${REPO_BASE}dmenu.git"
 DWMBLOCKS_REPO="${REPO_BASE}dwmblocks.git"
 SLOCK_REPO="${REPO_BASE}slock.git"
+
+STOW_LIST=(
+    base
+    bin
+    dunst
+    emacs
+    lf
+    mpd
+    mpv
+    ncmpcpp
+    neovim
+    newsboat
+    nsxiv
+    picom
+    rumdl
+    tmux
+    transmission
+    tridactyl
+    xorg
+    zathura
+    zsh
+)
 
 # Helpers
 msg() { printf "==> %s\n" "$1"; }
@@ -121,23 +143,7 @@ msg "Done creating hub2 directory structure"
 # Dotfiles
 msg "Installing dotfiles"
 clone_if_missing "$DOTS_REPO" "$DOTS_DIR"
-mapfile -t STOW_PACKAGES < <(
-    find "$DOTS_DIR" \
-        -mindepth 1 \
-        -maxdepth 1 \
-        -type d \
-        ! -name ".git" \
-        ! -name "cipher" \
-        -printf "%f\n" |
-        sort
-)
-((${#STOW_PACKAGES[@]} > 0)) || die "no Stow packages found in $DOTS_DIR"
-msg "Stowing ${#STOW_PACKAGES[@]} dotfile packages"
-stow \
-    --dir="$DOTS_DIR" \
-    --target="$HOME_DIR" \
-    --no-folding \
-    "${STOW_PACKAGES[@]}"
+stow --dir="$DOTS_DIR" --target="$HOME_DIR" --no-folding "${STOW_LIST[@]}"
 msg "Done installing dotfiles"
 
 # Suckless
