@@ -40,3 +40,13 @@ install_packages() {
     sudo pacman -Syu --needed --noconfirm "${packages[@]}"
     msg "Done installing ${#packages[@]} system packages"
 }
+# Preconditions
+need sudo
+need git
+need curl
+sudo -v
+
+# System packages
+msg "Starting Arch one-shot bootstrap"
+msg "Done checking prerequisites"
+install_packages
