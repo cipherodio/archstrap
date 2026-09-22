@@ -1,0 +1,111 @@
+CATEGORY,PACKAGE,DESCRIPTION
+Desktop Integration,xdg-utils,Desktop integration tools such as xdg-open.
+Vulkan,lib32-vulkan-radeon,32-bit Vulkan driver for AMD Radeon graphics.
+Graphics Diagnostics,mesa-utils,OpenGL and Mesa diagnostic utilities.
+Vulkan,vulkan-tools,Vulkan diagnostic and testing utilities.
+Audio Server,pipewire,Audio and video processing server.
+Audio Server,pipewire-alsa,ALSA compatibility layer for PipeWire.
+Audio Server,pipewire-pulse,PulseAudio compatibility layer for PipeWire.
+Audio Control,pulsemixer,Terminal mixer for PulseAudio-compatible servers.
+Audio Control,alsa-utils,Command-line tools for ALSA audio devices.
+Fonts,libertinus-font,Libertinus serif and sans-serif font family.
+Fonts,noto-fonts,Fonts with broad Unicode language coverage.
+Fonts,noto-fonts-emoji,Color emoji font from Google Noto.
+Fonts,ttf-dejavu,DejaVu TrueType font family.
+Fonts,ttf-liberation,Metric-compatible alternatives to common Microsoft fonts.
+Fonts,ttf-jetbrains-mono-nerd,JetBrains Mono with Nerd Font symbols.
+Fonts,ttf-ibm-plex, Emasc variable pitch font that i use.
+Kde,plasma-desktop,Desktop Environment.
+Kde,dolphin,File manager.
+Kde,kscreen,Needed for Display and Monitor configuration menu.
+Kde,plasma-pa,Audio volume applet.
+Kde,plasma-nm,Network applet.
+Kde,sddm,Wayland display manager.
+Kde,sddm-kcm,Module for SDDM.
+Power Management,acpi,Battery and thermal information utility.
+Notifications,dunst,Lightweight desktop notification daemon.
+Notifications,libnotify,Desktop notification library and command-line client.
+JavaScript Tooling,npm,Package manager for Node.js.
+Programming Language,nim,Nim compiler and development tools.
+Display Control,brightnessctl,Display and device brightness controller.
+Filesystem Tools,dosfstools,FAT filesystem creation and checking tools.
+Input Utilities,evtest,Linux input device event viewer.
+Filesystem Tools,exfatprogs,exFAT filesystem creation and checking tools.
+System Monitoring,htop,Interactive process and resource monitor.
+System Monitoring,amdgpu_top,Tool that shows AMD GPU utilization.
+Filesystem Tools,ntfs-3g,Read and write support for NTFS filesystems.
+Package Management,pacutils,Additional package management tools for Pacman.
+Power Management,upower,Power device information and monitoring service.
+Mirror Management,reflector,Arch Linux mirror list generator.
+Calculator,bc,Arbitrary-precision command-line calculator.
+File Search,fd,Fast and user-friendly file search tool.
+Fuzzy Finder,fzf,Interactive command-line fuzzy finder.
+Syntax Highlighting,highlight,Source code syntax highlighting utility.
+Documentation,man-db,Manual page database and reader.
+Unix Utilities,moreutils,Additional general-purpose Unix command-line tools.
+Data Recovery,testdisk,Partition and file recovery utility.
+File Synchronization,rsync,Local and remote file synchronization tool.
+JSON Tools,jq,Command-line JSON processor.
+Password Management,pass,GnuPG-based command-line password manager.
+PostScript Tools,psutils,Tools for manipulating PostScript documents.
+Remote Access,openssh,SSH client and server tools.
+File Search,ripgrep,Fast recursive text search tool.
+Terminal Multiplexer,tmux,Terminal session multiplexer.
+File Listing,tree,Tree-style directory listing utility.
+Archive Tools,unrar,RAR archive extraction utility.
+Archive Tools,unzip,ZIP archive extraction utility.
+Download Tools,wget,Command-line network file downloader.
+Archive Tools,zip,ZIP archive creation utility.
+Archive Tools,7zip,ZIP archive creation utility.
+Spell Checking,hunspell,Spell-checking engine.
+Spell Checking,hunspell-en_us,American English dictionary for Hunspell.
+Multimedia Tools,ffmpeg,Audio and video conversion and processing tools.
+Thumbnailer,ffmpegthumbnailer,Video thumbnail generation utility.
+Image Processing,imagemagick,Command-line image creation and editing tools.
+Media Information,mediainfo,Technical metadata viewer for media files.
+Music Player,mpc,Command-line client for MPD.
+Music Player,mpd,Background music player daemon.
+Media Player,mpv,Command-line audio and video player.
+Music Player,ncmpcpp,Terminal client for MPD.
+Image Viewer,nsxiv,Lightweight keyboard-driven image viewer.
+Media Downloader,yt-dlp,Video and audio downloader for supported websites.
+Thumbnailer,gnome-epub-thumbnailer,Thumbnail generator for EPUB documents.
+Web Browser,lynx,Text-based terminal web browser.
+Archive Tools,atool,Unified command-line interface for archive formats.
+Terminal Graphics,ueberzugpp,Image display support for terminal applications.
+Audio Editor,audacity,Graphical audio editor and recorder.
+3D Graphics,blender,3D modeling animation and rendering suite.
+Text Editor,emacs,Extensible GNU text editor.
+Web Browser,firefox,Firefox web browser.
+Browser Extension,firefox-dark-reader,Dark theme support for websites in Firefox.
+Browser Extension,firefox-tridactyl,Vim-style keyboard navigation for Firefox.
+Browser Extension,firefox-ublock-origin,Content and advertisement blocker for Firefox.
+Image Editor,gimp,Graphical raster image editor.
+Vector Graphics,inkscape,Graphical vector image editor.
+PDF Tools,poppler,PDF rendering library and command-line utilities.
+Music Streaming,spotify-launcher,Installer and launcher for the Spotify client.
+OCR,tesseract,Optical character recognition engine.
+OCR,tesseract-data-eng,English language data for Tesseract.
+OCR,tesseract-data-osd,Orientation and script detection data for Tesseract.
+Messaging,signal-desktop,Desktop client for Signal messaging.
+Document Viewer,zathura,Keyboard-driven document viewer.
+Document Viewer,zathura-pdf-mupdf,MuPDF-based PDF support for Zathura.
+Gaming,steam,Steam game distribution client.
+File Manager,lf,Terminal file manager.
+RSS Reader,newsboat,Terminal RSS and Atom feed reader.
+BitTorrent,transmission-cli,Command-line tools for the Transmission BitTorrent client.
+Trash Management,trash-cli,Command-line interface for desktop trash.
+Gaming,wine,Compatibility layer for running Windows programs.
+Gaming,wine-gecko,Needed for games setup for Wine.
+Gaming,wine-mono,Needed for games setup for Wine.
+Language Server,bash-language-server,Language server for Bash scripts.
+Language Server,lua-language-server,Language server for Lua.
+Markdown Tools,rumdl,Markdown linter and formatter.
+TOML Tools,tombi,TOML formatter and validator.
+XML Tools,xmlstarlet,Command-line XML query and editing tools.
+Shell Tools,shfmt,Shell script formatter.
+Shell Tools,shellcheck,Static analysis tool for shell scripts.
+Lua Tools,stylua,Lua source code formatter.
+Parser Tools,tree-sitter-cli,Command-line tools for Tree-sitter parsers.
+Language Server,vscode-json-languageserver,Language server for JSON.
+Language Server,yaml-language-server,Language server for YAML.
