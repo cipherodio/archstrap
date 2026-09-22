@@ -7,6 +7,13 @@ set -Eeuo pipefail
 REPO_BASE="https://gitlab.com/cipherodio/"
 PACKAGE_URL="${REPO_BASE}archstrap/-/raw/main/temppkg.csv"
 
+msg() { printf "==> %s\n" "$1"; }
+
+die() {
+    printf "error: %s\n" "$1" >&2
+    exit 1
+}
+
 need() { command -v "$1" >/dev/null 2>&1 || die "missing dependency: $1"; }
 
 install_packages() {
