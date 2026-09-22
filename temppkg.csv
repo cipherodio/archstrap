@@ -1,4 +1,4 @@
-CATEGORY,PACKAGE,DESCRIPTION
+#CATEGORY,PACKAGE,DESCRIPTION
 Vulkan,lib32-vulkan-radeon,32-bit Vulkan driver for AMD Radeon graphics.
 Graphics Diagnostics,mesa-utils,OpenGL and Mesa diagnostic utilities.
 Vulkan,vulkan-tools,Vulkan diagnostic and testing utilities.
